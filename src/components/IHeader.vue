@@ -2,7 +2,9 @@
   <div id="header">
     <div class="wrapper">
       <div class="left">
-        <div class="title">数字地图</div>
+        <div class="title">
+          <div>数字地图</div>
+        </div>
         <div class="link">
           <div>
             区域分布：
@@ -23,7 +25,9 @@
         </div>
       </div>
       <div class="right">
-        <div class="title">产学研创</div>
+        <div class="title">
+          <div>产学研创</div>
+        </div>
         <div class="link">
           <div>
             艺术创意：
@@ -50,10 +54,10 @@ import '../assets/font.less'
 
 <style lang="less">
 #header {
-  height: 83px;
+  height: 166px;
   background: url(../assets/SketchPng8f48c59cc4d3fb380c92955163224e0480f2bc6f2339047481634c26f7cf6ce2.png);
   display: flex;
-  font-family: 'HarmonyOS-Sans-Regular';
+  font-family: 'Alibaba-PuHeiTi';
   color: #fff;
 
   a {
@@ -62,22 +66,28 @@ import '../assets/font.less'
   }
 
   .wrapper {
-    width: 1350px;
-    height: 47px;
+    width: 1400px;
+    height: 88px;
     margin: auto;
     display: flex;
     justify-content: space-between;
 
     .title {
       box-sizing: border-box;
-      width: 44px;
-      height: 44px;
+      width: 88px;
+      height: 88px;
       background: #fff;
       color: #264947;
+      font-size: 36px;
       font-weight: bold;
-      padding: 1px;
-      letter-spacing: 5px;
       margin-right: 22px;
+
+      div {
+        line-height: 44px;
+        width: 75px;
+        height: 84px;
+        margin: auto;
+      }
     }
   }
 
@@ -86,7 +96,7 @@ import '../assets/font.less'
   }
 
   .link {
-    font-size: 14px;
+    font-size: 24px;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -94,7 +104,7 @@ import '../assets/font.less'
   }
 
   .link>div {
-    width: 330px;
+    width: 530px;
     display: flex;
     justify-content: space-between;
   }

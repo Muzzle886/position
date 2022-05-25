@@ -239,17 +239,13 @@ export default {
 <style scoped>
     .home-router{
         height: 100%;
-        display: flex;
-        flex-direction: column;
-
     }
     main{
-        flex:1;
-
+        height: calc(100% - 166px);
     }
     .searchTab{
         position: fixed;
-        top: 115px;
+        top: 193px;
         left: 53px;
     }
 </style>

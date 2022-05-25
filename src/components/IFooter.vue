@@ -43,32 +43,35 @@
   background: #2A2A2A;
 
   .wrapper {
-    width: 645px;
+    width: 1300px;
     display: flex;
     justify-content: space-between;
     margin: auto;
 
     .code {
       img {
-        max-height: 88px;
+        max-height: 130px;
       }
     }
   }
 
   .wrapper>ul {
-    margin: 0;
     padding: 0;
     text-align: center;
     list-style: none;
     color: #fff;
-    font-size: 14px;
-    margin: 8px auto;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+    margin: 12px auto 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     a {
-      font-size: 12px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: normal;
       text-decoration: none;
       color: rgba(255, 255, 255, 0.7);
     }

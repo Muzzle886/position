@@ -43,12 +43,12 @@ export default {
     }
     .guide-router > .content > .title{
         text-align: center;
-        margin-bottom: 53px;
+        margin-bottom: 105px;
     }
     .guide-router > .content > .title > h1{
-        font-size: 47px;
+        font-size: 93px;
         font-family: 'Alibaba-PuHeiTi';
-        font-weight: normal;
+        font-weight: bold;
         color: #FFFFFF;
         line-height: 83px;
         letter-spacing: 20px;
@@ -56,9 +56,10 @@ export default {
      .guide-router > .content > button{
          font-family: 'Alibaba-PuHeiTi';
          color: #FFFFFF;
-         line-height: 24px;
-         font-size: 17px;
-         padding: 6px 25px;
+         line-height: 48px;
+         font-size: 34px;
+         font-weight: bold;
+         padding: 12px 50px;
          border: none;
          border-radius: 10px;
          background-color: #cc5411;

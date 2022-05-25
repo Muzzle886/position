@@ -1,4 +1,5 @@
 <template>
+  <IHeader></IHeader>
   <div id="detail">
     <div class="name">恩施玉露：华中地区——湖北省恩施市</div>
     <div class="category">生态农业型·茶叶文化 民间非遗型·传统技艺</div>
@@ -141,9 +142,15 @@
         modifier: 1,
         slideShadows: true,
       }" :pagination="true" :modules="modules" class="mySwiper">
-        <swiper-slide><img src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngdb391f85c74f72f773188467d10e2307d464730717c75ea0ab479e13756a1caa" alt="" /></swiper-slide>
-        <swiper-slide><img src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngdb391f85c74f72f773188467d10e2307d464730717c75ea0ab479e13756a1caa" alt="" /></swiper-slide>
-        <swiper-slide><img src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngdb391f85c74f72f773188467d10e2307d464730717c75ea0ab479e13756a1caa" alt="" /></swiper-slide>
+        <swiper-slide><img
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngdb391f85c74f72f773188467d10e2307d464730717c75ea0ab479e13756a1caa"
+            alt="" /></swiper-slide>
+        <swiper-slide><img
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngdb391f85c74f72f773188467d10e2307d464730717c75ea0ab479e13756a1caa"
+            alt="" /></swiper-slide>
+        <swiper-slide><img
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngdb391f85c74f72f773188467d10e2307d464730717c75ea0ab479e13756a1caa"
+            alt="" /></swiper-slide>
       </swiper>
     </div>
     <div class="br"></div>
@@ -251,9 +258,12 @@
     </div>
     <div class="sm">本网站属于公益性学术性交流共享平台，以上影像、图片、文本等内容涉及版权问题，请联系本站！</div>
   </div>
+  <IFooter></IFooter>
 </template>
 
 <script setup>
+import IHeader from './IHeader.vue';
+import IFooter from './IFooter.vue';
 import '../assets/font.less'
 import { Swiper, SwiperSlide } from "swiper/vue";
 
@@ -279,8 +289,8 @@ let modules = ref([EffectCoverflow, Pagination]);
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 186px;
-  height: 228px;
+  width: 371px;
+  height: 456px;
 }
 
 .swiper-slide img {
@@ -293,19 +303,19 @@ let modules = ref([EffectCoverflow, Pagination]);
 
   .br {
     margin: 30px auto;
-    width: 584px;
-    height: 25px;
+    width: 1167px;
+    height: 49px;
     background: url(../assets/SketchPngc97578cd260cdba5793e870f3503315a756ffd4d2a1125cd5f4e4b9fef7015d2.png) no-repeat;
-    background-size: 584px 25px;
+    background-size: 1167px 49px;
   }
 
   .title {
     display: inline-block;
-    letter-spacing: 3px;
-    font-size: 12px;
+    letter-spacing: 5px;
+    font-size: 24px;
     font-weight: bold;
     color: #FFFFFF;
-    line-height: 17px;
+    line-height: 33px;
     background: #264947;
     padding: 3px;
 
@@ -325,7 +335,8 @@ let modules = ref([EffectCoverflow, Pagination]);
   }
 
   .havenot {
-    font-size: 11px;
+    font-size: 22px;
+    line-height: 30px;
     font-family: 'Alibaba-PuHeiTi';
     font-weight: bold;
     color: #000000;
@@ -339,20 +350,25 @@ let modules = ref([EffectCoverflow, Pagination]);
   .cover {
     text-align: center;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
   }
 
   .name {
+    font-size: 28px;
     margin-top: 34px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+  }
+
+  .category {
+    font-size: 22px;
   }
 
   .cover {
     margin-top: 34px;
 
     img {
-      height: 185px;
-      margin-right: 16px;
+      height: 370px;
+      margin-right: 32px;
     }
 
     img:last-child {
@@ -363,9 +379,10 @@ let modules = ref([EffectCoverflow, Pagination]);
   .brand {
     display: flex;
     justify-content: space-between;
-    max-width: 720px;
+    max-width: 1400px;
     margin: auto;
-    font-size: 11px;
+    font-size: 22px;
+    letter-spacing: 4px;
     font-weight: bold;
 
     .title {
@@ -379,48 +396,55 @@ let modules = ref([EffectCoverflow, Pagination]);
 
   .company {
     .container {
-      max-width: 620px;
+      max-width: 1230px;
       margin: auto;
       margin-top: 13px;
-      font-size: 10px;
+      font-size: 20px;
     }
 
     th {
       color: #264947;
-      font-size: 11px;
+      font-size: 22px;
     }
 
     tr>td:nth-child(2) {
-      width: 28px;
+      width: 63px;
     }
   }
 
   .video {
+    .title {
+      margin-bottom: 27px;
+    }
+
     a {
       margin-top: 10px;
-      font-size: 11px;
+      font-size: 22px;
+      line-height: 30px;
+      letter-spacing: 4px;
       color: #000;
       font-weight: bold;
     }
   }
 
   .sm {
-    margin: 22px auto;
+    margin: 44px auto;
     text-align: center;
-    font-size: 11px;
+    font-size: 22px;
+    line-height: 30px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
   }
 
   .paint {
     img {
-      max-height: 185px;
+      max-height: 369px;
     }
   }
 
   .ad {
     img {
-      max-height: 220px;
+      max-height: 437px;
     }
   }
 
@@ -435,36 +459,41 @@ let modules = ref([EffectCoverflow, Pagination]);
 
   .wx {
     h3 {
-      font-size: 14px;
+      font-size: 20px;
       font-weight: bold;
+      letter-spacing: 4px;
+      line-height: 31px;
       color: #000;
       margin-bottom: 0;
     }
 
     p {
+      font-size: 22px;
+      letter-spacing: 4px;
+      line-height: 31px;
       text-indent: 2em;
-      font-size: 11px;
       font-weight: normal;
       color: rgba(0, 0, 0, 0.9);
     }
   }
 
   .qk p {
-    font-size: 11px;
+    font-size: 22px;
+    letter-spacing: 4px;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.9);
-    line-height: 15px;
+    line-height: 30px;
   }
 
   .gs p {
-    font-size: 11px;
+    font-size: 22px;
     color: rgba(0, 0, 0, 0.9);
-    line-height: 16px;
+    line-height: 31px;
     letter-spacing: 4px;
   }
 
   .sg p {
-    font-size: 11px;
+    font-size: 22px;
     font-family: 'Alibaba-PuHeiTi';
     font-weight: bold;
     color: #000000;
@@ -476,6 +505,6 @@ let modules = ref([EffectCoverflow, Pagination]);
 
 #detail>div {
   margin: auto;
-  max-width: 720px;
+  max-width: 1440px;
 }
 </style>
