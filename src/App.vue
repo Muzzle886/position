@@ -1,24 +1,19 @@
 <script setup>
-import Detail from './components/Detail.vue';
-import IHeader from './components/IHeader.vue';
-import IFooter from './components/IFooter.vue';
-import Home from './components/Home.vue';
+import './assets/font.less'
 </script>
 
 <template>
-  <IHeader></IHeader>
-  <!-- <Detail></Detail> -->
-  <Home></Home>
-  <IFooter></IFooter>
+  <router-view></router-view>
 </template>
 
 <style>
-body {
+html,body,#app {
   margin: 0;
+  height: 100%;
 }
 
 #app {
-  font-family: '微软雅黑';
+  font-family: 'Alibaba-PuHeiTi';
 }
 
 a {

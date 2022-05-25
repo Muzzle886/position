@@ -8,11 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "element-plus": "^2.2.2",
     "less": "^4.1.2",
     "less-loader": "^11.0.0",
     "swiper": "^8.1.5",
     "vue": "^3.2.25",
-    "vue-baidu-map": "^0.21.22"
+    "vue-baidu-map": "^0.21.22",
+    "vue-router": "^4.0.15"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
