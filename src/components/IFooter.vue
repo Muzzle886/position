@@ -26,7 +26,7 @@
       </ul>
       <div class="code">
         <img
-          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe"
+          src="../assets/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png"
           alt="">
       </div>
     </div>
