@@ -1,26 +1,27 @@
 <template>
-    <div class="search-router">
-        <div class="search-model" icon="el-icon-search">
-            <input type="text" v-model="searchText" @keyup.enter="updata">
-            <el-icon>
-                <Search />
-            </el-icon>
+    <transition name="search">
+        <div class="search-router" v-show="isShowSearch">
+            <div class="search-model" icon="el-icon-search">
+                <input type="text" v-model="searchText" @keyup.enter="updata">
+                <i class="el-icon-search"></i>
+            </div>
+            <div class="search-data">
+                <ul>
+                    <li v-for="item in showData" :key="item" @click="liclick(item)">
+                        {{ item.name }}
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="search-data">
-            <ul>
-                <li v-for="item in showData" :key="item" @click="liclick(item)">
-                    {{ item.name }}
-                </li>
-            </ul>
-        </div>
-    </div>
+    </transition>
 </template>
-<script>
+<script >
 import { defineComponent } from 'vue'
 
 export default defineComponent({
     data() {
         return {
+            isShowSearch: false,
             searchText: "",
             searchData: [
                 {
@@ -97,6 +98,12 @@ export default defineComponent({
             nowSelect: null,
             lastSelect: null,
         }
+    },
+    mounted() {
+        console.log('ok');
+        setTimeout(() => {
+            this.isShowSearch = true
+        }, 500)
     },
     methods: {
         liclick(item) {
@@ -209,5 +216,9 @@ export default defineComponent({
     color: #000000;
     line-height: 14px;
     letter-spacing: 10px;
+}
+
+.search-enter-active {
+    animation: fadeIn 1s ease-in;
 }
 </style>
