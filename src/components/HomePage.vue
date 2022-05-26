@@ -74,14 +74,14 @@ export default {
         //     })
         // },
         setLabelShow(map,zoom,labelList){
-            if(zoom> 6.0){
+            if(zoom>=6){
                 labelList.forEach(item=>{
                     map.removeOverlay(item.dom)
                 })
             }else{
                 this.setLabel(map,labelList)
             }
-            if(zoom>6.01&&zoom<7.5){
+            if(zoom>=6&&zoom<7){
                 this.setLabel(map,this.provinceList)
                 }else{
                     this.provinceList.forEach(item=>{
@@ -89,14 +89,14 @@ export default {
                         map.removeOverlay(item.dom)
                     })
             }
-            if(zoom>7.5&&zoom<9){
+            if(zoom>=7&&zoom<8){
                 this.setLabel(map,this.city)
             }else{
                 this.city.forEach(item=>{
                     map.removeOverlay(item.dom)
                 })
             }
-            if(zoom>9){
+            if(zoom>=8){
                 this.setLabel(map,this.marklist)
             }else{
                 this.marklist.forEach(item=>{
