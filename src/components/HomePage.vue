@@ -29,6 +29,18 @@ export default {
         }
     },
     methods:{
+        createPoint(address){
+            var myGeo = new BMapGL.Geocoder();
+            // 将地址解析结果显示在地图上，并调整地图视野
+            myGeo.getPoint(address, function(point){
+                if(point){
+                    // map.centerAndZoom(point, 16);
+                    map.addOverlay(new BMapGL.Marker(point, {title: address}))
+                }else{
+                    alert('您选择的地址没有解析到结果！');
+                }
+            })
+        },
         createdLabel(text,opts){
             let label = new window.BMapGL.Label(text,opts);
             let style = {
@@ -163,6 +175,10 @@ export default {
             position:new window.BMapGL.Point(109.48,30.27),
             offset: new window.BMapGL.Size(-43,-49.92)
         })
+        var point = new window.BMapGL.Point(116.404, 39.915);   
+        var marker = new window.BMapGL.Marker(point);        // 创建标注   
+        this.map.addOverlay(marker);  
+        this.createPoint("武汉市")
         let yulu = new window.BMapGL.Marker(new window.BMapGL.Point(109.50, 30.20))
         yulu.addEventListener('click',function(){
             router.push('/detail')
@@ -212,7 +228,7 @@ export default {
         })
         //添加点击事件
         this.labelList.forEach(item=>{
-            const zoom = 6.01 // 跳转后地图的缩放比例
+            const zoom = 6.0 // 跳转后地图的缩放比例
             item.dom.addEventListener('click', function(){
                 console.log(this.getPosition())
                 that.setPositionAndZoom(map,this.getPosition(),zoom)
@@ -220,14 +236,14 @@ export default {
             })
         })
         this.provinceList.forEach(item=>{
-            const zoom = 7.5 // 跳转后地图的缩放比例
+            const zoom = 7 // 跳转后地图的缩放比例
             item.dom.addEventListener('click', function(){
                 that.setPositionAndZoom(map,this.getPosition(),zoom)
                 // that.setLabelShow(map,zoom,that.labelList)
             })
         })
         this.city.forEach(item=>{
-            const zoom = 8.5
+            const zoom = 8
             item.dom.addEventListener('click',function(){
                 that.setPositionAndZoom(map,this.getPosition(),zoom)
             })
