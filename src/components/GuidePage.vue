@@ -63,8 +63,8 @@ const goToHomePage = () => {
     font-weight: bold;
     padding: 12px 50px;
     border: none;
-    border-radius: 10px;
-    background-color: #cc5411;
+    border-radius: 20px;
+    background-color: #CC5411;
     cursor: pointer;
 }
 

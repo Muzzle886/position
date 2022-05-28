@@ -7,7 +7,9 @@ import './assets/font.less'
 </template>
 
 <style>
-html,body,#app {
+html,
+body,
+#app {
   margin: 0;
   height: 100%;
 }
