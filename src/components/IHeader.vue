@@ -1,51 +1,65 @@
 <template>
-  <div id="header">
-    <div class="wrapper">
-      <div class="left">
-        <div class="title">
-          <div>数字地图</div>
-        </div>
-        <div class="link">
-          <div>
-            区域分布：
-            <a href="">华东</a>
-            <a href="">华南</a>
-            <a href="">华中</a>
-            <a href="">华北</a>
-            <a href="">西北</a>
-            <a href="">西南</a>
-            <a href="">东北</a>
+  <div class="bg">
+    <div id="header">
+      <div class="wrapper">
+        <div class="left">
+          <div class="title">
+            <router-link to="/home">
+              <a href="">
+                数字地图
+              </a>
+            </router-link>
+
           </div>
-          <div>
-            类型选择：
-            <a href="">非遗文化</a>
-            <a href="">生态文化</a>
-            <a href="">中欧地理标志</a>
+          <div class="link">
+            <div>
+              区域分布:
+              <a href="">华东</a>
+              <a href="">华南</a>
+              <a href="">华中</a>
+              <a href="">华北</a>
+              <a href="">西北</a>
+              <a href="">西南</a>
+              <a href="">东北</a>
+            </div>
+            <div>
+              类型选择:
+              <div>
+                <a href="">非遗文化</a>
+                <a href="">生态文化</a>
+                <a href="">中欧地理标志</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="right">
-        <div class="title">
-          <div>产学研创</div>
-        </div>
-        <div class="link">
-          <div>
-            艺术创意：
-            <a href="">影像媒介</a>
-            <a href="">摄影媒介</a>
-            <a href="">绘画媒介</a>
-            <a href="">广告媒介</a>
+        <div class="right">
+          <div class="title">
+            <router-link to="/home">
+              <a href="">产学研创</a>
+            </router-link>
           </div>
-          <div>
-            文学创作：
-            <a href="">文脉挖掘</a>
-            <a href="">故事创作</a>
-            <a href="">思政教育</a>
+          <div class="link">
+            <div>
+              艺术创意:
+              <a href="">影像媒介</a>
+              <a href="">摄影媒介</a>
+              <a href="">绘画媒介</a>
+              <a href="">广告媒介</a>
+            </div>
+            <div>
+              文学创作:
+              <div>
+                <a href="">文脉挖掘</a>
+                <a href="">故事创作</a>
+                <a href="">思政教育</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -53,12 +67,18 @@ import '../assets/font.less'
 </script>
 
 <style lang="less">
+.bg {
+  background: url(../assets/SketchPng8f48c59cc4d3fb380c92955163224e0480f2bc6f2339047481634c26f7cf6ce2.png) no-repeat;
+  background-size: 100% 100%;
+}
+
 #header {
   height: 166px;
-  background: url(../assets/SketchPng8f48c59cc4d3fb380c92955163224e0480f2bc6f2339047481634c26f7cf6ce2.png);
   display: flex;
   font-family: 'Alibaba-PuHeiTi';
   color: #fff;
+  background: rgba(0, 18, 5, 0.37);
+
 
   a {
     text-decoration: none;
@@ -74,19 +94,22 @@ import '../assets/font.less'
 
     .title {
       box-sizing: border-box;
-      width: 88px;
-      height: 88px;
+      width: 86px;
+      height: 86px;
       background: #fff;
-      color: #264947;
-      font-size: 36px;
+      font-size: 30px;
       font-weight: bold;
-      margin-right: 22px;
+      margin-right: 25px;
+      font-family: PingFangSC-Semibold, PingFang SC;
 
-      div {
-        line-height: 44px;
+      a {
+        display: block;
+        color: #264947;
+        line-height: 40px;
         width: 75px;
         height: 84px;
         margin: auto;
+        text-align: center;
       }
     }
   }
@@ -96,17 +119,35 @@ import '../assets/font.less'
   }
 
   .link {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: normal;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-family: PingFangSC-Semibold, PingFang SC;
   }
 
-  .link>div {
-    width: 530px;
+  .link div a:nth-child(2n+1) {
+    margin: 0 25px;
+  }
+
+  .link div a:first-child {
+    margin-left: 10px;
+  }
+
+  .link div a:last-child {
+    margin-right: 0;
+  }
+
+  .link div:nth-child(2n) {
     display: flex;
-    justify-content: space-between;
+
+    div {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+    }
+
   }
 }
 </style>

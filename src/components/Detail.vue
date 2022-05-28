@@ -2,7 +2,10 @@
   <IHeader></IHeader>
   <div id="detail">
     <div class="name">恩施玉露：华中地区——湖北省恩施市</div>
-    <div class="category">生态农业型·茶叶文化 民间非遗型·传统技艺</div>
+    <div class="category">
+      <span>生态农业型·茶叶文化</span>
+      <span>民间非遗型·传统技艺</span>
+    </div>
     <div class="cover">
       <img
         src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng77a4cd172e334c4962d47ad1b1cb1b150e0d7a24094049655186035179745a25"
@@ -38,69 +41,37 @@
         </div>
       </div>
       <div class="container">
-        <div>
-          <table border="0">
-            <caption></caption>
-            <tbody>
-              <tr>
-                <th>县市</th>
-                <th></th>
-                <th>公司名称</th>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="container-left">
+          <div>
+            <div class="container-title">县市</div>
+            <span>恩施市</span>
+            <span>恩施市</span>
+            <span>恩施市</span>
+            <span>恩施市</span>
+          </div>
+          <div>
+            <div class="container-title">公司名称</div>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+          </div>
         </div>
-        <div>
-          <table border="0">
-            <caption></caption>
-            <tbody>
-              <tr>
-                <th>县市</th>
-                <th></th>
-                <th>公司名称</th>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-              <tr>
-                <td>恩施市</td>
-                <td></td>
-                <td>恩施市润邦国际富硒茶业有限公司</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="container-right">
+          <div>
+            <span class="container-title">县市</span>
+            <span>恩施市</span>
+            <span>恩施市</span>
+            <span>恩施市</span>
+            <span>恩施市</span>
+          </div>
+          <div>
+            <span class="container-title">公司名称</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+            <span>恩施市润邦国际富硒茶业有限公司</span>
+          </div>
         </div>
       </div>
     </div>
@@ -181,7 +152,7 @@
     <div class="wx">
       <div class="title">典籍文献</div>
       <div>
-        <h3>杨大华. 中国名茶品鉴金典 第2版[M]</h3>
+        <h3>杨大华. 中国名茶品鉴金典 第2版[M].2019</h3>
         <p>
           恩施古称“施州”，为古巴子国故地，自古产茶。众所周知,《神农本草经》中有“神农尝百草，日遇七十二毒，得茶而解之”的记载，其中的荼即茶。恩施是当时神农活动的地区之一，因此也是中国茶文化的发祥地之一。根据东晋史学家常噱《华阳国志·巴志》记载:“周武王伐纣，实得巴蜀之师，……茶、蜜……皆纳贡之。”当时，恩施位于古巴子国腹地，这一记载表明恩施在3000年前就有种茶、用茶的历史。在公元3世纪西晋时的《荆州土地记》中亦有“武陵七县通出茶”的记载。唐代陆羽所撰《茶经》也记载了恩施的茶事:“茶者，南方之嘉木也。……其巴山峡川，有两人合抱者。”明代王一正《事物绀珠》中载:“茶类今茶名……荆州茶、施州茶、南木茶……”
         </p>
@@ -302,7 +273,7 @@ let modules = ref([EffectCoverflow, Pagination]);
   font-family: 'Alibaba-PuHeiTi';
 
   .br {
-    margin: 30px auto;
+    margin: 68px auto;
     width: 1167px;
     height: 49px;
     background: url(../assets/SketchPngc97578cd260cdba5793e870f3503315a756ffd4d2a1125cd5f4e4b9fef7015d2.png) no-repeat;
@@ -327,6 +298,14 @@ let modules = ref([EffectCoverflow, Pagination]);
   .topbar {
     display: flex;
     justify-content: space-between;
+
+    a {
+      padding: 3px 6px;
+    }
+  }
+
+  .topbar div:last-child {
+    letter-spacing: 0;
   }
 
   .container {
@@ -361,10 +340,13 @@ let modules = ref([EffectCoverflow, Pagination]);
 
   .category {
     font-size: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
   }
 
   .cover {
-    margin-top: 34px;
+    margin-top: 68px;
 
     img {
       height: 370px;
@@ -380,17 +362,18 @@ let modules = ref([EffectCoverflow, Pagination]);
     display: flex;
     justify-content: space-between;
     max-width: 1400px;
-    margin: auto;
+    margin: 50px auto;
     font-size: 22px;
     letter-spacing: 4px;
     font-weight: bold;
+    font-family: Alibaba-PuHuiTi-M, Alibaba-PuHuiTi;
 
     .title {
-      margin-bottom: 10px;
+      margin-bottom: 24px;
     }
 
     div {
-      margin-top: 5px;
+      margin-top: 16px;
     }
   }
 
@@ -400,25 +383,51 @@ let modules = ref([EffectCoverflow, Pagination]);
       margin: auto;
       margin-top: 13px;
       font-size: 20px;
-    }
 
-    th {
-      color: #264947;
-      font-size: 22px;
-    }
+      .container-left,
+      .container-right {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        font-family: Alibaba-PuHuiTi-H, Alibaba-PuHuiTi;
+        gap: 70px;
 
-    tr>td:nth-child(2) {
-      width: 63px;
+        .container-title {
+          font-weight: 700;
+          color: #264947;
+          text-align: center;
+          margin-top: 24px;
+        }
+
+        span {
+          margin-top: 24px;
+        }
+
+        div:first-child span {
+          display: flex;
+          width: 60px;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        div:last-child span {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+
     }
   }
 
   .video {
-    .title {
-      margin-bottom: 27px;
+    div {
+      margin-top: 26px;
     }
 
     a {
-      margin-top: 10px;
       font-size: 22px;
       line-height: 30px;
       letter-spacing: 4px;
@@ -462,18 +471,20 @@ let modules = ref([EffectCoverflow, Pagination]);
       font-size: 20px;
       font-weight: bold;
       letter-spacing: 4px;
-      line-height: 31px;
+      line-height: 32px;
       color: #000;
+      margin-top: 40px;
       margin-bottom: 0;
     }
 
     p {
       font-size: 22px;
       letter-spacing: 4px;
-      line-height: 31px;
+      line-height: 32px;
       text-indent: 2em;
       font-weight: normal;
       color: rgba(0, 0, 0, 0.9);
+      margin: 0;
     }
   }
 
@@ -483,13 +494,17 @@ let modules = ref([EffectCoverflow, Pagination]);
     font-weight: bold;
     color: rgba(0, 0, 0, 0.9);
     line-height: 30px;
+    margin-top: 36px;
+    margin-bottom: 0;
   }
 
   .gs p {
     font-size: 22px;
     color: rgba(0, 0, 0, 0.9);
-    line-height: 31px;
+    line-height: 32px;
     letter-spacing: 4px;
+    margin-top: 40px;
+    margin-bottom: 0;
   }
 
   .sg p {
@@ -499,7 +514,7 @@ let modules = ref([EffectCoverflow, Pagination]);
     color: #000000;
     letter-spacing: 4px;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 24px;
   }
 }
 
