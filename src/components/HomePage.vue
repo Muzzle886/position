@@ -29,15 +29,17 @@ export default {
         }
     },
     methods:{
-        createPoint(address){
-            var myGeo = new BMapGL.Geocoder();
+        createPoint(map,address){
+            var myGeo = new window.BMapGL.Geocoder();
             // 将地址解析结果显示在地图上，并调整地图视野
             myGeo.getPoint(address, function(point){
                 if(point){
-                    // map.centerAndZoom(point, 16);
-                    map.addOverlay(new BMapGL.Marker(point, {title: address}))
+                    console.log(point);
+                    // map.addOverlay(new window.BMapGL.Marker(point))
+                    return point;
                 }else{
                     alert('您选择的地址没有解析到结果！');
+                    return null;
                 }
             })
         },
@@ -110,6 +112,7 @@ export default {
             }
             if(zoom>=8){
                 this.setLabel(map,this.marklist)
+               // this.createPoint(map,"武汉市");
             }else{
                 this.marklist.forEach(item=>{
                     map.removeOverlay(item.dom)
@@ -175,10 +178,8 @@ export default {
             position:new window.BMapGL.Point(109.48,30.27),
             offset: new window.BMapGL.Size(-43,-49.92)
         })
-        var point = new window.BMapGL.Point(116.404, 39.915);   
-        var marker = new window.BMapGL.Marker(point);        // 创建标注   
-        this.map.addOverlay(marker);
-        this.createPoint("武汉市")
+        console.log("hhh");
+        console.log(this.createPoint("恩施市"));
         let yulu = new window.BMapGL.Marker(new window.BMapGL.Point(109.50, 30.20))
         yulu.addEventListener('click',function(){
             router.push('/detail')
