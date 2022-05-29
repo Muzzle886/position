@@ -177,7 +177,7 @@ export default {
         })
         var point = new window.BMapGL.Point(116.404, 39.915);   
         var marker = new window.BMapGL.Marker(point);        // 创建标注   
-        this.map.addOverlay(marker);  
+        this.map.addOverlay(marker);
         this.createPoint("武汉市")
         let yulu = new window.BMapGL.Marker(new window.BMapGL.Point(109.50, 30.20))
         yulu.addEventListener('click',function(){
