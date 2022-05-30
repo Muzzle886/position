@@ -3,7 +3,9 @@
         <div class="search-router" v-show="isShowSearch">
             <div class="search-model" icon="el-icon-search">
                 <input type="text" v-model="searchText" @keyup.enter="updata">
-                <i class="el-icon-search"></i>
+                <el-icon>
+                    <Search />
+                </el-icon>
             </div>
             <div class="search-data">
                 <ul>
@@ -17,6 +19,7 @@
 </template>
 <script >
 import { defineComponent } from 'vue'
+import { Search } from '@element-plus/icons-vue'
 
 export default defineComponent({
     data() {
@@ -173,6 +176,9 @@ export default defineComponent({
                 return this.nowSelect.children
             }
         }
+    },
+    components: {
+        Search
     }
 })
 </script>

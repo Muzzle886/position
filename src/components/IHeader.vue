@@ -14,44 +14,44 @@
           <div class="link">
             <div>
               区域分布:
-              <a href="">华东</a>
-              <a href="">华南</a>
-              <a href="">华中</a>
-              <a href="">华北</a>
-              <a href="">西北</a>
-              <a href="">西南</a>
-              <a href="">东北</a>
+              <a href="/home">华东</a>
+              <a href="/home">华南</a>
+              <a href="/home">华中</a>
+              <a href="/home">华北</a>
+              <a href="/home">西北</a>
+              <a href="/home">西南</a>
+              <a href="/home">东北</a>
             </div>
             <div>
               类型选择:
               <div>
-                <a href="">非遗文化</a>
-                <a href="">生态文化</a>
-                <a href="">中欧地理标志</a>
+                <a href="/home">非遗文化</a>
+                <a href="/home">生态文化</a>
+                <a href="/home">中欧地理标志</a>
               </div>
             </div>
           </div>
         </div>
         <div class="right">
           <div class="title">
-            <router-link to="/home">
+            <router-link to="/detail">
               <a href="">产学研创</a>
             </router-link>
           </div>
           <div class="link">
             <div>
               艺术创意:
-              <a href="">影像媒介</a>
-              <a href="">摄影媒介</a>
-              <a href="">绘画媒介</a>
-              <a href="">广告媒介</a>
+              <a href="javascript:void(0);">影像媒介</a>
+              <a href="javascript:void(0);">摄影媒介</a>
+              <a href="javascript:void(0);">绘画媒介</a>
+              <a href="javascript:void(0);">广告媒介</a>
             </div>
             <div>
               文学创作:
               <div>
-                <a href="">文脉挖掘</a>
-                <a href="">故事创作</a>
-                <a href="">思政教育</a>
+                <a href="javascript:void(0);">文脉挖掘</a>
+                <a href="javascript:void(0);">故事创作</a>
+                <a href="javascript:void(0);">思政教育</a>
               </div>
             </div>
           </div>
