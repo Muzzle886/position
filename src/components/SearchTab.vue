@@ -225,6 +225,6 @@ export default defineComponent({
 }
 
 .search-enter-active {
-    animation: fadeIn 1s ease-in;
+    animation: fadeIn .5s ease-in;
 }
 </style>

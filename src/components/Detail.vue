@@ -270,8 +270,6 @@ let modules = ref([EffectCoverflow, Pagination]);
 }
 
 #detail {
-  font-family: 'Alibaba-PuHeiTi';
-
   .br {
     margin: 68px auto;
     width: 1167px;
@@ -288,6 +286,7 @@ let modules = ref([EffectCoverflow, Pagination]);
     color: #FFFFFF;
     line-height: 33px;
     background: #264947;
+    font-family: Alibaba-PuHuiTi-B, Alibaba-PuHuiTi;
     padding: 3px;
 
     a {
@@ -330,6 +329,8 @@ let modules = ref([EffectCoverflow, Pagination]);
     text-align: center;
     font-weight: bold;
     letter-spacing: 4px;
+    font-family: Alibaba-PuHuiTi-B, Alibaba-PuHuiTi;
+
   }
 
   .name {
@@ -370,6 +371,7 @@ let modules = ref([EffectCoverflow, Pagination]);
 
     .title {
       margin-bottom: 24px;
+      font-family: Alibaba-PuHuiTi-B, Alibaba-PuHuiTi;
     }
 
     div {
@@ -400,6 +402,7 @@ let modules = ref([EffectCoverflow, Pagination]);
 
         span {
           margin-top: 24px;
+          font-family: Alibaba-PuHuiTi-R, Alibaba-PuHuiTi;
         }
 
         div:first-child span {
