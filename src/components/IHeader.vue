@@ -5,22 +5,19 @@
         <div class="left">
           <div class="title">
             <router-link to="/home">
-              <a href="">
-                数字地图
-              </a>
+              <p class="top-left">数</p>
+              <p class="top-right">字</p>
+              <p class="bottom-left">地</p>
+              <p class="bottom-right">图</p>
             </router-link>
 
           </div>
           <div class="link">
             <div>
               区域分布:
-              <a href="/home">华东</a>
-              <a href="/home">华南</a>
-              <a href="/home">华中</a>
-              <a href="/home">华北</a>
-              <a href="/home">西北</a>
-              <a href="/home">西南</a>
-              <a href="/home">东北</a>
+              <template v-for="item in areaData" :key="item.name">
+                <a @click="syncMap(item)">{{ item.name }}</a>
+              </template>
             </div>
             <div>
               类型选择:
@@ -35,7 +32,12 @@
         <div class="right">
           <div class="title">
             <router-link to="/detail">
-              <a href="">产学研创</a>
+              <router-link to="/home">
+                <p class="top-left">产</p>
+                <p class="top-right">学</p>
+                <p class="bottom-left">研</p>
+                <p class="bottom-right">创</p>
+              </router-link>
             </router-link>
           </div>
           <div class="link">
@@ -64,6 +66,50 @@
 
 <script setup>
 import '../assets/font.less'
+import { ref, defineEmits } from 'vue'
+
+const emit = defineEmits(['skip'])
+const areaData = ref([
+  {
+    name: '华东',
+    point: [120.581, 31.894],
+    zoom: 6.02
+  },
+  {
+    name: '华南',
+    point: [115.505, 23.155],
+    zoom: 6.02
+  },
+  {
+    name: '华中',
+    point: [111.632, 30.433],
+    zoom: 6.02
+  },
+  {
+    name: '华北',
+    point: [115.533, 36.707],
+    zoom: 6.02
+  },
+  {
+    name: '西北',
+    point: [90.714, 37.500],
+    zoom: 6.02
+  },
+  {
+    name: '西南',
+    point: [102.511, 23.981],
+    zoom: 6.02
+  },
+  {
+    name: '东北',
+    point: [127.045, 44.746],
+    zoom: 6.02
+  },
+])
+
+const syncMap = (item) => {
+  emit('skip', item)
+}
 </script>
 
 <style lang="less">
@@ -75,7 +121,6 @@ import '../assets/font.less'
 #header {
   height: 166px;
   display: flex;
-  font-family: 'Alibaba-PuHeiTi';
   color: #fff;
   background: rgba(0, 18, 5, 0.37);
 
@@ -92,24 +137,48 @@ import '../assets/font.less'
     display: flex;
     justify-content: space-between;
 
+    // font-weight: 550;
+
     .title {
       box-sizing: border-box;
-      width: 86px;
-      height: 86px;
+      width: 88px;
+      height: 88px;
       background: #fff;
-      font-size: 30px;
-      font-weight: bold;
+      font-weight: 600;
       margin-right: 25px;
-      font-family: PingFangSC-Semibold, PingFang SC;
+      position: relative;
 
-      a {
-        display: block;
+      p {
+        // display: flex;
         color: #264947;
-        line-height: 40px;
-        width: 75px;
-        height: 84px;
-        margin: auto;
-        text-align: center;
+        font-size: 36px;
+        line-height: 36px;
+        margin: 0;
+        padding: 5px;
+      }
+
+      .top-left {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      .top-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      .bottom-left {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+
+      .bottom-right {
+        position: absolute;
+        right: 0;
+        bottom: 0;
       }
     }
   }
@@ -120,11 +189,9 @@ import '../assets/font.less'
 
   .link {
     font-size: 20px;
-    font-weight: normal;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-family: PingFangSC-Semibold, PingFang SC;
   }
 
   .link div a:nth-child(2n+1) {

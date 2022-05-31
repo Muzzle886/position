@@ -1,6 +1,6 @@
 <template>
     <div class="home-router">
-        <IHeader></IHeader>
+        <IHeader @skip="skip"></IHeader>
         <main id="container"></main>
         <IFooter></IFooter>
         <SearchTab class="searchTab" @skip="skip" @skip2="skip2"></SearchTab>
@@ -12,67 +12,67 @@ import IFooter from './IFooter.vue'
 import SearchTab from './SearchTab.vue'
 import router from '../router'
 export default {
-    components:{
-    IHeader,
-    IFooter,
-    SearchTab
+    components: {
+        IHeader,
+        IFooter,
+        SearchTab
     },
-    data(){
+    data() {
         return {
-            zoom:5,
-            nowZoom:5,
-            labelList:[],
-            provinceList:[],
-            city:[],
-            marklist:[],
-            map:{}
+            zoom: 5,
+            nowZoom: 5,
+            labelList: [],
+            provinceList: [],
+            city: [],
+            marklist: [],
+            map: {}
         }
     },
-    methods:{
-        createPoint(map,address){
+    methods: {
+        createPoint(map, address) {
             var myGeo = new window.BMapGL.Geocoder();
             // 将地址解析结果显示在地图上，并调整地图视野
-            myGeo.getPoint(address, function(point){
-                if(point){
+            myGeo.getPoint(address, function (point) {
+                if (point) {
                     console.log(point);
                     // map.addOverlay(new window.BMapGL.Marker(point))
                     return point;
-                }else{
+                } else {
                     alert('您选择的地址没有解析到结果！');
                     return null;
                 }
             })
         },
-        createdLabel(text,opts){
-            let label = new window.BMapGL.Label(text,opts);
+        createdLabel(text, opts) {
+            let label = new window.BMapGL.Label(text, opts);
             let style = {
                 "font-size": "14px",
-               " font-family": "PingFangSC-Semibold, PingFang SC",
+                " font-family": "PingFangSC-Semibold, PingFang SC",
                 "font-weight": "500",
-                "color":" #FFFFFF",
-                "line-height":" 14px",
-                "padding":"9px 15px",
-                "background-color":"#264947",
-                "border":"none",
+                "color": " #FFFFFF",
+                "line-height": " 14px",
+                "padding": "9px 15px",
+                "background-color": "#264947",
+                "border": "none",
                 "clip-path": "polygon(100% 0, 100% 50%, 60% 50%, 50% 78%, 40% 50%, 0 50%, 0 0)",
-                "height":"46px"
+                "height": "46px"
             }
             label.setStyle(style)
             return label
         },
-        createdCoverObejct(context,label){
+        createdCoverObejct(context, label) {
             return {
-                name:context,
-                dom:label,
-                children:[
+                name: context,
+                dom: label,
+                children: [
 
                 ]
             }
         },
         //在map中渲染label
-        setLabel(map,list){
-            list.forEach(item=>{
-                 map.addOverlay(item.dom)
+        setLabel(map, list) {
+            list.forEach(item => {
+                map.addOverlay(item.dom)
             })
         },
         // setProvince(map,list){
@@ -87,82 +87,83 @@ export default {
         //         });
         //     })
         // },
-        setLabelShow(map,zoom,labelList){
-            if(zoom>=6){
-                labelList.forEach(item=>{
+        setLabelShow(map, zoom, labelList) {
+            if (zoom >= 6) {
+                labelList.forEach(item => {
                     map.removeOverlay(item.dom)
                 })
-            }else{
-                this.setLabel(map,labelList)
+            } else {
+                this.setLabel(map, labelList)
             }
-            if(zoom>=6&&zoom<7){
-                this.setLabel(map,this.provinceList)
-                }else{
-                    this.provinceList.forEach(item=>{
-                        console.log(item.dom)
-                        map.removeOverlay(item.dom)
-                    })
-            }
-            if(zoom>=7&&zoom<8){
-                this.setLabel(map,this.city)
-            }else{
-                this.city.forEach(item=>{
+            if (zoom >= 6 && zoom < 7) {
+                this.setLabel(map, this.provinceList)
+            } else {
+                this.provinceList.forEach(item => {
+                    console.log(item.dom)
                     map.removeOverlay(item.dom)
                 })
             }
-            if(zoom>=8){
-                this.setLabel(map,this.marklist)
-               // this.createPoint(map,"武汉市");
-            }else{
-                this.marklist.forEach(item=>{
+            if (zoom >= 7 && zoom < 8) {
+                this.setLabel(map, this.city)
+            } else {
+                this.city.forEach(item => {
+                    map.removeOverlay(item.dom)
+                })
+            }
+            if (zoom >= 8) {
+                this.setLabel(map, this.marklist)
+                // this.createPoint(map,"武汉市");
+            } else {
+                this.marklist.forEach(item => {
                     map.removeOverlay(item.dom)
                 })
             }
         },
-        setPositionAndZoom(map,point,zoom){
-            map.centerAndZoom(point,zoom)
+        setPositionAndZoom(map, point, zoom) {
+            map.centerAndZoom(point, zoom)
             // this.setLabelShow(map,zoom,this.labelList)
         },
-        skip(item){
-            console.log("item------>",item)
-            let point = new window.BMapGL.Point(item.point[0],item.point[1])
-            this.setPositionAndZoom(this.map,point,item.zoom)
+        skip(item) {
+            console.log("item------>", item)
+            let point = new window.BMapGL.Point(item.point[0], item.point[1])
+            this.setPositionAndZoom(this.map, point, item.zoom)
+            console.log('skip ok');
 
         },
-        skip2(item){
-            console.log("skip2--->",item)
+        skip2(item) {
+            console.log("skip2--->", item)
         }
     },
-    created(){
+    created() {
         let that = this
-        let labelOfNorthEast = this.createdLabel("东北地区",{
-            position: new window.BMapGL.Point(127.045,44.746),
-            offset: new window.BMapGL.Size(-43,-49.92)
-            }
+        let labelOfNorthEast = this.createdLabel("东北地区", {
+            position: new window.BMapGL.Point(127.045, 44.746),
+            offset: new window.BMapGL.Size(-43, -49.92)
+        }
         )
-        let labelOfNorthChina = this.createdLabel("华北地区",{
-            position: new window.BMapGL.Point(115.533,36.707),
-            offset: new window.BMapGL.Size(-43,-49.92)
+        let labelOfNorthChina = this.createdLabel("华北地区", {
+            position: new window.BMapGL.Point(115.533, 36.707),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
-        let labelOfCenterChina = this.createdLabel("华中地区",{
-            position:new window.BMapGL.Point(111.632,30.433),
-             offset: new window.BMapGL.Size(-43,-49.92)
+        let labelOfCenterChina = this.createdLabel("华中地区", {
+            position: new window.BMapGL.Point(111.632, 30.433),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
-        let labelOfEastChina = this.createdLabel("华东地区",{
-            position: new window.BMapGL.Point(120.581,31.894),
-             offset: new window.BMapGL.Size(-43,-49.92)
+        let labelOfEastChina = this.createdLabel("华东地区", {
+            position: new window.BMapGL.Point(120.581, 31.894),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
-        let labelOfSouthChina = this.createdLabel("华南地区",{
-            position: new window.BMapGL.Point(115.505,23.155),
-            offset: new window.BMapGL.Size(-43,-49.92)
+        let labelOfSouthChina = this.createdLabel("华南地区", {
+            position: new window.BMapGL.Point(115.505, 23.155),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
-        let labelOfSouthWest = this.createdLabel("西南地区",{
-            position: new window.BMapGL.Point(102.511,23.981),
-            offset: new window.BMapGL.Size(-43,-49.92)
+        let labelOfSouthWest = this.createdLabel("西南地区", {
+            position: new window.BMapGL.Point(102.511, 23.981),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
-        let labelOfNorthWest = this.createdLabel("西北地区",{
-            position: new window.BMapGL.Point(90.714,37.500),
-            offset: new window.BMapGL.Size(-43,-49.92)
+        let labelOfNorthWest = this.createdLabel("西北地区", {
+            position: new window.BMapGL.Point(90.714, 37.500),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
         // var hubei = new window.BMapGL.Boundary();
         // this.provinceList.push({
@@ -170,99 +171,101 @@ export default {
         //     dom:{},
         //     prov:hubei
         // })
-        let hubei = this.createdLabel('湖北省(共500件)',{
-             position:new window.BMapGL.Point(114.34,30.54),
-             offset: new window.BMapGL.Size(-43,-49.92)
+        let hubei = this.createdLabel('湖北省(共500件)', {
+            position: new window.BMapGL.Point(114.34, 30.54),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
-        let enshi = this.createdLabel('恩施(共90件)',{
-            position:new window.BMapGL.Point(109.48,30.27),
-            offset: new window.BMapGL.Size(-43,-49.92)
+        let enshi = this.createdLabel('恩施(共90件)', {
+            position: new window.BMapGL.Point(109.48, 30.27),
+            offset: new window.BMapGL.Size(-43, -49.92)
         })
         console.log("hhh");
         console.log(this.createPoint("恩施市"));
         let yulu = new window.BMapGL.Marker(new window.BMapGL.Point(109.50, 30.20))
-        yulu.addEventListener('click',function(){
+        yulu.addEventListener('click', function () {
             router.push('/detail')
         })
         let temp = [
-            this.createdCoverObejct("东北地区",labelOfNorthEast),
-            this.createdCoverObejct("华北地区",labelOfNorthChina),
-            this.createdCoverObejct("华中地区",labelOfCenterChina),
-            this.createdCoverObejct("华东地区",labelOfEastChina),
-            this.createdCoverObejct("华南地区",labelOfSouthChina),
-            this.createdCoverObejct("西南地区",labelOfSouthWest),
-            this.createdCoverObejct("西北地区",labelOfNorthWest),
+            this.createdCoverObejct("东北地区", labelOfNorthEast),
+            this.createdCoverObejct("华北地区", labelOfNorthChina),
+            this.createdCoverObejct("华中地区", labelOfCenterChina),
+            this.createdCoverObejct("华东地区", labelOfEastChina),
+            this.createdCoverObejct("华南地区", labelOfSouthChina),
+            this.createdCoverObejct("西南地区", labelOfSouthWest),
+            this.createdCoverObejct("西北地区", labelOfNorthWest),
         ]
-        temp.forEach( item =>{
+        temp.forEach(item => {
             console.log(that)
             this.labelList.push(item)
         })
         let temp2 = [
-            this.createdCoverObejct("湖北省",hubei)
+            this.createdCoverObejct("湖北省", hubei)
         ]
-        temp2.forEach(item=>{
+        temp2.forEach(item => {
             this.provinceList.push(item)
         })
         let temp3 = [
-            this.createdCoverObejct("恩施",enshi)
+            this.createdCoverObejct("恩施", enshi)
         ]
-        temp3.forEach(item=>{
+        temp3.forEach(item => {
             this.city.push(item)
         })
         let temp4 = [
-            this.createdCoverObejct("玉露",yulu)
+            this.createdCoverObejct("玉露", yulu)
         ]
-        temp4.forEach(item=>{
+        temp4.forEach(item => {
             this.marklist.push(item)
         })
     },
-    mounted(){
+    mounted() {
         let that = this
         let map = new window.BMapGL.Map("container")
         this.map = map
-        let point = new window.BMapGL.Point(109.488,38.272)
-        map.centerAndZoom(point,this.zoom)
+        let point = new window.BMapGL.Point(109.488, 38.272)
+        map.centerAndZoom(point, this.zoom)
         map.enableScrollWheelZoom(true)
-        map.addEventListener('zoomend',function(e){
+        map.addEventListener('zoomend', function (e) {
             console.log(e.target.getZoom())
-            that.setLabelShow(map,e.target.getZoom(),that.labelList)
+            that.setLabelShow(map, e.target.getZoom(), that.labelList)
         })
         //添加点击事件
-        this.labelList.forEach(item=>{
+        this.labelList.forEach(item => {
             const zoom = 6.0 // 跳转后地图的缩放比例
-            item.dom.addEventListener('click', function(){
+            item.dom.addEventListener('click', function () {
                 console.log(this.getPosition())
-                that.setPositionAndZoom(map,this.getPosition(),zoom)
+                that.setPositionAndZoom(map, this.getPosition(), zoom)
                 // that.setLabelShow(map,zoom,that.labelList)
             })
         })
-        this.provinceList.forEach(item=>{
+        this.provinceList.forEach(item => {
             const zoom = 7 // 跳转后地图的缩放比例
-            item.dom.addEventListener('click', function(){
-                that.setPositionAndZoom(map,this.getPosition(),zoom)
+            item.dom.addEventListener('click', function () {
+                that.setPositionAndZoom(map, this.getPosition(), zoom)
                 // that.setLabelShow(map,zoom,that.labelList)
             })
         })
-        this.city.forEach(item=>{
+        this.city.forEach(item => {
             const zoom = 8
-            item.dom.addEventListener('click',function(){
-                that.setPositionAndZoom(map,this.getPosition(),zoom)
+            item.dom.addEventListener('click', function () {
+                that.setPositionAndZoom(map, this.getPosition(), zoom)
             })
         })
-        this.setLabel(map,this.labelList)
+        this.setLabel(map, this.labelList)
     }
 }
 </script>
 <style scoped>
-    .home-router{
-        height: 100%;
-    }
-    main{
-        height: calc(100% - 166px);
-    }
-    .searchTab{
-        position: fixed;
-        top: 193px;
-        left: 53px;
-    }
+.home-router {
+    height: 100%;
+}
+
+main {
+    height: calc(100% - 166px);
+}
+
+.searchTab {
+    position: fixed;
+    top: 193px;
+    left: 53px;
+}
 </style>
