@@ -66,7 +66,8 @@
 
 <script setup>
 import '../assets/font.less'
-import { ref, defineEmits } from 'vue'
+import { ref, defineEmits, nextTick } from 'vue'
+import { useRoute, useRouter } from "vue-router";
 
 const emit = defineEmits(['skip'])
 const areaData = ref([
@@ -107,8 +108,19 @@ const areaData = ref([
   },
 ])
 
+const route = useRoute();
+const router = useRouter();
+
 const syncMap = (item) => {
-  emit('skip', item)
+  if (route.fullPath === '/detail') {
+    router.push({
+      path: '/home',
+      query: { point: item.point, zoom: item.zoom }
+    })
+  } else {
+    emit('skip', item)
+  }
+
 }
 </script>
 
@@ -128,6 +140,7 @@ const syncMap = (item) => {
   a {
     text-decoration: none;
     color: #fff;
+    cursor: pointer;
   }
 
   .wrapper {

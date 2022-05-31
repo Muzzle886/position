@@ -11,6 +11,8 @@ import IHeader from './IHeader.vue'
 import IFooter from './IFooter.vue'
 import SearchTab from './SearchTab.vue'
 import router from '../router'
+import { useRoute } from "vue-router";
+import { nextTick } from 'vue'
 export default {
     components: {
         IHeader,
@@ -124,11 +126,12 @@ export default {
             // this.setLabelShow(map,zoom,this.labelList)
         },
         skip(item) {
-            console.log("item------>", item)
-            let point = new window.BMapGL.Point(item.point[0], item.point[1])
-            this.setPositionAndZoom(this.map, point, item.zoom)
-            console.log('skip ok');
-
+            nextTick(() => {
+                console.log("item------>", item)
+                let point = new window.BMapGL.Point(item.point[0], item.point[1])
+                this.setPositionAndZoom(this.map, point, item.zoom)
+                console.log('skip ok');
+            })
         },
         skip2(item) {
             console.log("skip2--->", item)
@@ -218,6 +221,11 @@ export default {
         })
     },
     mounted() {
+        const route = useRoute();
+        if (route.query) {
+            this.skip(route.query)
+        }
+
         let that = this
         let map = new window.BMapGL.Map("container")
         this.map = map
