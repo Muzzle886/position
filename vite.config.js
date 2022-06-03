@@ -9,4 +9,12 @@ export default defineConfig({
       BMap: 'BMap',
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://47.102.42.113:8082/',
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })
