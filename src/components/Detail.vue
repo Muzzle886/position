@@ -3,8 +3,8 @@
   <div id="detail">
     <div class="name">{{ info.trademark }}：{{ getNameByProvince(info.province) }}——{{ info.province + info.city }}</div>
     <div class="category">
-      <span>生态农业型·{{ info.culture_name }}</span>
-      <span>民间非遗型·传统技艺</span>
+      <span v-if="info.ecology_type !== ''">生态农业型·{{ info.ecology_type }}</span>
+      <span v-if="info.folk_type !== ''">民间非遗型·{{ info.folk_type }}</span>
     </div>
     <div class="cover">
       <img
@@ -23,11 +23,11 @@
         <div>商标类型：{{ info.trademark_type }}</div>
         <div>注 册 人：{{ info.registrant }}</div>
       </div>
-      <div class="brand-2">
+      <div class="brand-2" v-if="info.culture_name !== ''">
         <div class="title">非遗信息</div>
-        <div>非遗名称：恩施玉露制作技艺</div>
-        <div>批次时间：2014(第四批)</div>
-        <div>非遗类别：传统技艺</div>
+        <div>非遗名称：{{ info.culture_name }}</div>
+        <div>批次时间：{{ info.batch }}</div>
+        <div>非遗类别：{{ info.culture_category }}</div>
         <div>保护单位：{{ info.protection_unit }}</div>
         <div>传 承 人：{{ info.inheritor }}</div>
       </div>
@@ -192,6 +192,7 @@
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router'
 import IHeader from './IHeader.vue';
 import IFooter from './IFooter.vue';
 import '../assets/font.less'
@@ -208,7 +209,7 @@ import axios from 'axios'
 
 import { getNameByProvince } from './dq'
 
-let id = 21
+let id = useRoute().params.id
 
 let ads = ref([])
 let companys = ref([])
@@ -562,12 +563,6 @@ axios.get('/api/product/story', {
     }
   }
 
-  .ad {
-    img {
-      // max-height: 437px;
-    }
-  }
-
   .paint,
   .ad {
     .img {
@@ -577,7 +572,9 @@ axios.get('/api/product/story', {
     }
   }
 
-  .wx {
+  .wx,
+  .sw,
+  .zj {
     h3 {
       font-size: 20px;
       font-weight: bold;

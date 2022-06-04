@@ -37,6 +37,14 @@ export const dq = [
       '新疆维吾尔自治区',
     ],
   },
+  {
+    name: '东北地区',
+    provinces: ['辽宁省', '吉林省', '黑龙江省', '内蒙古自治区'],
+  },
+  {
+    name: '港澳台',
+    provinces: ['香港特别行政区', '澳门特别行政区', '台湾省'],
+  },
 ]
 
 export function getNameByProvince(province) {

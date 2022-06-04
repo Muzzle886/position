@@ -14,7 +14,7 @@ const routes = [
     component: HomePage
   },
   {
-    path:'/detail',
+    path:'/detail/:id',
     name:'detail',
     component:IDetail
   }
