@@ -1,230 +1,262 @@
 <template>
-    <transition name="search">
-        <div class="search-router" v-show="isShowSearch">
-            <div class="search-model" icon="el-icon-search">
-                <input type="text" v-model="searchText" @keyup.enter="updata">
-                <el-icon>
-                    <Search />
-                </el-icon>
-            </div>
-            <div class="search-data">
-                <ul>
-                    <li v-for="item in showData" :key="item" @click="liclick(item)">
-                        {{ item.name }}
-                    </li>
-                </ul>
-            </div>
+  <transition name="search">
+    <div class="search-router"
+         v-show="isShowSearch">
+      <div class="search-model"
+           icon="el-icon-search">
+        <input type="text"
+               v-model="searchText"
+               @keyup.enter="updata">
+        <el-icon>
+          <Search />
+        </el-icon>
+      </div>
+      <div class="search-data">
+        <ul>
+          <li v-for="item in showData"
+              :key="item"
+              @click="liclick(item)">
+            {{ item.name }}
+          </li>
+        </ul>
+        <div class="icon_back">
+          <button>返回</button>
         </div>
-    </transition>
+
+      </div>
+    </div>
+  </transition>
 </template>
 <script >
 import { defineComponent } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 
 export default defineComponent({
-    data() {
-        return {
-            isShowSearch: false,
-            searchText: "",
-            searchData: [
-                {
-                    father: null,
-                    name: "华东",
-                    children: [
+  data () {
+    return {
+      isShowSearch: false,
+      searchText: "",
+      searchData: [
+        {
+          father: null,
+          name: "华东",
+          children: [
 
-                    ]
-                },
-                {
-                    father: null,
-                    name: "华南",
-                    children: [
-
-                    ]
-                },
-                {
-                    father: null,
-                    name: "华中",
-                    point: [111.632, 30.433],
-                    zoom: 6.02,
-                    children: [
-                        {
-                            father: "华中",
-                            name: "湖北省",
-                            point: [114.34, 30.54],
-                            zoom: 7,
-                            children: [
-                                {
-                                    father: "湖北省",
-                                    name: "恩施",
-                                    point: [109.48, 30.27],
-                                    zoom: 9.3,
-                                    children: null
-                                }
-                            ]
-                        },
-                        {
-                            father: "华中",
-                            name: "河南省",
-                            children: []
-                        }
-                    ]
-                },
-                {
-                    father: null,
-                    name: "华北",
-                    children: [
-
-                    ]
-                },
-                {
-                    father: null,
-                    name: "西北",
-                    children: [
-
-                    ]
-                },
-                {
-                    father: null,
-                    name: "西南",
-                    children: [
-
-                    ]
-                },
-                {
-                    father: null,
-                    name: "东北",
-                    children: [
-
-                    ]
-                }
-            ],
-            nowSelect: null,
-            lastSelect: null,
-        }
-    },
-    mounted() {
-        console.log('ok');
-        setTimeout(() => {
-            this.isShowSearch = true
-        }, 500)
-    },
-    methods: {
-        liclick(item) {
-            let flag = false
-            if (item.children === null) {
-                flag = true
-            } else {
-                this.lastSelect = this.nowSelect
-                this.nowSelect = item
-            }
-            console.log(this.nowSelect)
-            if (this.$attrs.skip !== null) {
-                if (flag) {
-                    this.$emit("skip", item)
-                } else {
-                    this.$emit("skip", this.nowSelect)
-                }
-            }
+          ]
         },
-        updata() {
-            console.log('updata')
-            let result = null
-            for (let i = 0; i < this.searchData.length; i++) {
-                if (this.searchData[i].name.indexOf(this.searchText) !== -1) {
-                    result = this.searchData[i];
-                    this.lastSelect = this.nowSelect
-                    this.nowSelect = this.searchData
+        {
+          father: null,
+          name: "华南",
+          children: [
+
+          ]
+        },
+        {
+          father: null,
+          name: "华中",
+          point: [111.632, 30.433],
+          zoom: 6.02,
+          children: [
+            {
+              father: "华中",
+              name: "湖北省",
+              point: [114.34, 30.54],
+              zoom: 7,
+              children: [
+                {
+                  father: "湖北省",
+                  name: "恩施",
+                  point: [109.48, 30.27],
+                  zoom: 9.3,
+                  children: null
                 }
-                for (let j = 0; j < this.searchData[i].children.length; j++) {
-                    if (this.searchData[i].children[j].name.indexOf(this.searchText) !== -1) {
-                        result = this.searchData[i].children[j];
-                        this.lastSelect = this.nowSelect
-                        this.nowSelect = this.searchData[i]
-                    }
-                    for (let x = 0; x < this.searchData[i].children[j].children.length; x++) {
-                        if (this.searchData[i].children[j].children[x].name.indexOf(this.searchText) !== -1) {
-                            console.log("???")
-                            result = this.searchData[i].children[j].children[x];
-                            this.lastSelect = this.nowSelect
-                            this.nowSelect = this.searchData[i].children[j]
-                        }
-                    }
-                }
+              ]
+            },
+            {
+              father: "华中",
+              name: "河南省",
+              children: []
             }
-            if (this.$attrs.skip2 != null) {
-                this.$emit("skip2", result)
-            }
+          ]
+        },
+        {
+          father: null,
+          name: "华北",
+          children: [
+
+          ]
+        },
+        {
+          father: null,
+          name: "西北",
+          children: [
+
+          ]
+        },
+        {
+          father: null,
+          name: "西南",
+          children: [
+
+          ]
+        },
+        {
+          father: null,
+          name: "东北",
+          children: [
+
+          ]
         }
-    },
-    computed: {
-        showData() {
-            console.log("last", this.lastSelect)
-            console.log("now", this.nowSelect)
-            if (this.nowSelect === this.searchData) {
-                return this.searchData
-            }
-            else if (this.nowSelect === null) {
-                console.log("diyi")
-                return this.searchData
-            }
-            else if (this.nowSelect.children === null) {
-                console.log("dier")
-                console.log(this.lastSelect)
-                return this.lastSelect.children
-            } else {
-                console.log("disan")
-                return this.nowSelect.children
-            }
-        }
-    },
-    components: {
-        Search
+      ],
+      nowSelect: null,
+      lastSelect: null,
     }
+  },
+  mounted () {
+    console.log('ok');
+    setTimeout(() => {
+      this.isShowSearch = true
+    }, 500)
+  },
+  methods: {
+    liclick (item) {
+      let flag = false
+      if (item.children === null) {
+        flag = true
+      } else {
+        this.lastSelect = this.nowSelect
+        this.nowSelect = item
+      }
+      console.log(this.nowSelect)
+      if (this.$attrs.skip !== null) {
+        if (flag) {
+          this.$emit("skip", item)
+        } else {
+          this.$emit("skip", this.nowSelect)
+        }
+      }
+    },
+    updata () {
+      console.log('updata')
+      let result = null
+      for (let i = 0; i < this.searchData.length; i++) {
+        if (this.searchData[i].name.indexOf(this.searchText) !== -1) {
+          result = this.searchData[i];
+          this.lastSelect = this.nowSelect
+          this.nowSelect = this.searchData
+        }
+        for (let j = 0; j < this.searchData[i].children.length; j++) {
+          if (this.searchData[i].children[j].name.indexOf(this.searchText) !== -1) {
+            result = this.searchData[i].children[j];
+            this.lastSelect = this.nowSelect
+            this.nowSelect = this.searchData[i]
+          }
+          for (let x = 0; x < this.searchData[i].children[j].children.length; x++) {
+            if (this.searchData[i].children[j].children[x].name.indexOf(this.searchText) !== -1) {
+              console.log("???")
+              result = this.searchData[i].children[j].children[x];
+              this.lastSelect = this.nowSelect
+              this.nowSelect = this.searchData[i].children[j]
+            }
+          }
+        }
+      }
+      if (this.$attrs.skip2 != null) {
+        this.$emit("skip2", result)
+      }
+    }
+  },
+  computed: {
+    showData () {
+      console.log("last", this.lastSelect)
+      console.log("now", this.nowSelect)
+      if (this.nowSelect === this.searchData) {
+        return this.searchData
+      }
+      else if (this.nowSelect === null) {
+        console.log("diyi")
+        return this.searchData
+      }
+      else if (this.nowSelect.children === null) {
+        console.log("dier")
+        console.log(this.lastSelect)
+        return this.lastSelect.children
+      } else {
+        console.log("disan")
+        return this.nowSelect.children
+      }
+    }
+  },
+  components: {
+    Search
+  }
 })
 </script>
-<style scoped>
+<style scoped  lang="less">
 .search-router {
-    min-width: 130px;
-    padding: 18px 10px;
-    background: #FFFFFF;
-    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3), -1px -1px 5px 1px rgba(0, 0, 0, 0.3);
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    z-index: 1000;
+  min-width: 130px;
+  padding: 18px 10px;
+  background: #ffffff;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.3),
+    -1px -1px 5px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
 }
 
-.search-router>.search-model {
-    width: 100%;
-    border-radius: 16px;
-    box-sizing: border-box;
-    border: 1px solid #979797;
-    padding: 5px 9px;
-    margin-bottom: 10px;
+.search-router > .search-model {
+  width: 100%;
+  border-radius: 16px;
+  box-sizing: border-box;
+  border: 1px solid #979797;
+  padding: 5px 9px;
+  margin-bottom: 10px;
 }
 
-.search-router>.search-model>input {
-    border: none;
+.search-router > .search-model > input {
+  border: none;
 }
 
-.search-router>.search-data>ul {
-    display: flex;
-    flex-direction: column;
+.search-router > .search-data > ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
 }
 
-.search-router>.search-data>ul>li {
-    text-align: center;
-    padding: 8px;
-    font-size: 13px;
-    font-family: PingFangSC-Semibold, PingFang SC;
-    font-weight: 600;
-    color: #000000;
-    line-height: 14px;
-    letter-spacing: 10px;
+.search-router > .search-data > ul > li {
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+  /* font-family: PingFangSC-Semibold, PingFang SC; */
+  font-weight: lighter;
+  line-height: 14px;
+  letter-spacing: 10px;
+  color: #000000;
 }
 
+.search-router > .search-data > ul > li:hover {
+  color: #ba0000;
+}
 .search-enter-active {
-    animation: fadeIn .5s ease-in;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.icon_back {
+  display: flex;
+  justify-content: center;
+  button {
+    width: 83px;
+    height: 29px;
+    background: #264947;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 22px;
+    margin-right: 10px;
+  }
 }
 </style>
