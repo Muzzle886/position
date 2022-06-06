@@ -18,7 +18,6 @@
                 <div class="icon_back">
                     <button>返回</button>
                 </div>
-
             </div>
         </div>
     </transition>
