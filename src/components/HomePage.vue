@@ -16,6 +16,7 @@ import SearchTab from './SearchTab.vue'
 import router from '../router'
 import { useRoute } from "vue-router";
 import { nextTick } from 'vue'
+import axios from 'axios'
 export default {
     components: {
         IHeader,
@@ -36,6 +37,37 @@ export default {
         }
     },
     methods: {
+        createPoint(marklist, address) {
+            var myGeo = new window.BMapGL.Geocoder();
+            // 将地址解析结果显示在地图上，并调整地图视野
+            myGeo.getPoint(address, function (point) {
+                if (point) {
+                    console.log(point);
+                    // map.addOverlay(new window.BMapGL.Marker(point))
+                    let marker = new window.BMapGL.Marker(point)
+                    marklist.push({
+                        context: address,
+                        dom: marker
+                    })
+                } else {
+                    alert('您选择的地址没有解析到结果！');
+                }
+            })
+        },
+        getPointList(marklist) {
+            axios({
+                method: "get",
+                url: "/api/position/info",
+                // url:"http://47.102.42.113:8082/position/info",
+                params: {},
+            }).then((res) => {
+                let infoList = res.data.data;
+                console.log(infoList);
+                infoList.forEach(item => {
+                    this.createPoint(marklist, item.detailed_address)
+                })
+            })
+        },
         createdLabel(text, opts) {
             let label = new window.BMapGL.Label(text, opts);
             let style = {
@@ -204,6 +236,7 @@ export default {
         // })
 
         // 加点  
+        this.getPointList(this.marklist)
         let yulu = new window.BMapGL.Marker(new window.BMapGL.Point(109.50, 30.20))
         yulu.addEventListener('click', function () {
             router.push('/detail')
