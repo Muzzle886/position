@@ -19,7 +19,6 @@ import '../assets/font.less'
 let isShowGuide = ref(true)
 
 const goToHomePage = () => {
-
     router.push('/home')
     isShowGuide.value = false
 }

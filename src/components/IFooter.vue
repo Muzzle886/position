@@ -25,9 +25,7 @@
         <li><a href="">137-0719-1690</a></li>
       </ul>
       <div class="code">
-        <img
-          src="../assets/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png"
-          alt="">
+        <img src="../assets/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png" alt="">
       </div>
     </div>
   </div>
@@ -74,6 +72,10 @@
       font-weight: normal;
       text-decoration: none;
       color: rgba(255, 255, 255, 0.7);
+    }
+
+    a:hover {
+      color: #ba0000;
     }
   }
 }
