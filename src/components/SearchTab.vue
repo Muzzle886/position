@@ -1,28 +1,23 @@
 <template>
   <transition name="search">
-    <div class="search-router"
-         v-show="isShowSearch">
-      <div class="search-model"
-           icon="el-icon-search">
-        <input type="text"
-               v-model="searchText"
-               @keyup.enter="updata">
+    <div class="search-router" v-show="isShowSearch">
+      <div class="search-model" icon="el-icon-search">
+        <input type="text" v-model="searchText" @keyup.enter="updata" @input="inputChange">
         <el-icon>
           <Search />
         </el-icon>
       </div>
       <div class="search-data">
         <ul>
-          <li v-for="item in showData"
-              :key="item"
-              @click="liclick(item)">
-            {{ item.name }}
-          </li>
+          <el-scrollbar height="400px">
+            <li v-for="item in showData" :key="item" @click="liclick(item)" class="search-item">
+              {{ item.name }}
+            </li>
+          </el-scrollbar>
         </ul>
         <div class="icon_back">
           <button>返回</button>
         </div>
-
       </div>
     </div>
   </transition>
@@ -30,9 +25,11 @@
 <script >
 import { defineComponent } from 'vue'
 import { Search } from '@element-plus/icons-vue'
+import throttle from 'lodash/throttle'
+import axios from 'axios'
 
 export default defineComponent({
-  data () {
+  data() {
     return {
       isShowSearch: false,
       searchText: "",
@@ -110,18 +107,21 @@ export default defineComponent({
       ],
       nowSelect: null,
       lastSelect: null,
+      lastSearchData: []
     }
   },
-  mounted () {
-    console.log('ok');
+  mounted() {
     setTimeout(() => {
       this.isShowSearch = true
     }, 500)
+
+    this.lastSearchData = this.searchData
   },
   methods: {
-    liclick (item) {
+    liclick(item) {
+      console.log('item', item.children === null);
       let flag = false
-      if (item.children === null) {
+      if (item.children === null || !item.children) {
         flag = true
       } else {
         this.lastSelect = this.nowSelect
@@ -136,7 +136,7 @@ export default defineComponent({
         }
       }
     },
-    updata () {
+    updata() {
       console.log('updata')
       let result = null
       for (let i = 0; i < this.searchData.length; i++) {
@@ -164,10 +164,25 @@ export default defineComponent({
       if (this.$attrs.skip2 != null) {
         this.$emit("skip2", result)
       }
-    }
+    },
+    inputChange: throttle(function () {
+      if (this.searchText === '') {
+        return this.searchData = this.lastSearchData
+      }
+      axios.post(`/api/position/search?text=${this.searchText}`).then(res => {
+        if (res.data.length !== 0) {
+          for (const item of res.data.data) {
+            item.name = item.trademark
+          }
+        }
+
+        this.nowSelect = null
+        this.searchData = res.data.data
+      })
+    }, 300)
   },
   computed: {
-    showData () {
+    showData() {
       console.log("last", this.lastSelect)
       console.log("now", this.nowSelect)
       if (this.nowSelect === this.searchData) {
@@ -177,7 +192,7 @@ export default defineComponent({
         console.log("diyi")
         return this.searchData
       }
-      else if (this.nowSelect.children === null) {
+      else if (this.nowSelect.children && this.nowSelect.children === null) {
         console.log("dier")
         console.log(this.lastSelect)
         return this.lastSelect.children
@@ -206,7 +221,7 @@ export default defineComponent({
   z-index: 1000;
 }
 
-.search-router > .search-model {
+.search-router>.search-model {
   width: 100%;
   border-radius: 16px;
   box-sizing: border-box;
@@ -215,18 +230,19 @@ export default defineComponent({
   margin-bottom: 10px;
 }
 
-.search-router > .search-model > input {
+.search-router>.search-model>input {
   border: none;
+  outline: 0;
 }
 
-.search-router > .search-data > ul {
+.search-router>.search-data>ul {
   display: flex;
   flex-direction: column;
   list-style: none;
   padding: 0;
 }
 
-.search-router > .search-data > ul > li {
+.search-item {
   text-align: center;
   padding: 20px;
   font-size: 20px;
@@ -237,9 +253,11 @@ export default defineComponent({
   color: #000000;
 }
 
-.search-router > .search-data > ul > li:hover {
+.search-item:hover {
   color: #ba0000;
+  cursor: pointer;
 }
+
 .search-enter-active {
   animation: fadeIn 0.5s ease-in;
 }
@@ -247,6 +265,7 @@ export default defineComponent({
 .icon_back {
   display: flex;
   justify-content: center;
+
   button {
     width: 83px;
     height: 29px;
@@ -257,6 +276,10 @@ export default defineComponent({
     color: #ffffff;
     line-height: 22px;
     margin-right: 10px;
+  }
+
+  button:hover {
+    cursor: pointer;
   }
 }
 </style>

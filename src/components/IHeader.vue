@@ -31,13 +31,11 @@
         </div>
         <div class="right">
           <div class="title">
-            <router-link to="/detail">
-              <router-link to="/home">
-                <p class="top-left">产</p>
-                <p class="top-right">学</p>
-                <p class="bottom-left">研</p>
-                <p class="bottom-right">创</p>
-              </router-link>
+            <router-link to="/home">
+              <p class="top-left">产</p>
+              <p class="top-right">学</p>
+              <p class="bottom-left">研</p>
+              <p class="bottom-right">创</p>
             </router-link>
           </div>
           <div class="link">
@@ -66,7 +64,7 @@
 
 <script setup>
 import '../assets/font.less'
-import { ref, defineEmits, nextTick } from 'vue'
+import { ref, defineEmits } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 
 const emit = defineEmits(['skip'])
@@ -112,7 +110,7 @@ const route = useRoute();
 const router = useRouter();
 
 const syncMap = (item) => {
-  if (route.fullPath === '/detail') {
+  if (route.fullPath.indexOf('detail') === 1) {
     router.push({
       path: '/home',
       query: { point: item.point, zoom: item.zoom }
@@ -141,6 +139,10 @@ const syncMap = (item) => {
     text-decoration: none;
     color: #fff;
     cursor: pointer;
+  }
+
+  a:hover {
+    color: #ba0000;
   }
 
   .wrapper {
