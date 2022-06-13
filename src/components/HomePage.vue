@@ -33,42 +33,76 @@ export default {
       provinceList: [],
       city: [],
       marklist: [],
+      textlist: [],
       map: {},
       label: [],
       point_out: '',
+      infoList: []
     }
   },
   methods: {
-    createPoint(marklist, address) {
-        var myGeo = new window.BMapGL.Geocoder();
-        // 将地址解析结果显示在地图上，并调整地图视野
-        myGeo.getPoint(address, function (point) {
-            if (point) {
-                console.log(point);
-                // map.addOverlay(new window.BMapGL.Marker(point))
-                let marker = new window.BMapGL.Marker(point)
-                marklist.push({
-                    context: address,
-                    dom: marker
-                })
-            } else {
-                alert('您选择的地址没有解析到结果！');
-            }
-        })
+    createPoint (name, intro, address, id) {
+      var myGeo = new window.BMapGL.Geocoder();
+      let that = this
+      // 将地址解析结果显示在地图上，并调整地图视野
+      myGeo.getPoint(address, function (point) {
+        // let opts = {
+        //   width: 200,     // 信息窗口宽度
+        //   height: 300,     // 信息窗口高度
+        //   title: name, // 信息窗口标题
+        //   message: intro
+        // }
+
+        if (point) {
+          let marker = new window.BMapGL.Marker(point, { title: name })
+          that.map.addOverlay(marker)
+          // var infoWindow = new BMapGL.InfoWindow(intro, opts);  // 创建信息窗口对象 
+          // marker.addEventListener("click", function () {
+          //   that.map.openInfoWindow(infoWindow, point); //开启信息窗口
+          // });
+          let opts = {
+            position: point, // 指定文本标注所在的地理位置
+            offset: new BMapGL.Size(-50, -80) // 设置文本偏移量
+          };
+          let label = new BMapGL.Label(name, opts);
+          // 自定义文本标注样式
+          label.setStyle({
+            color: 'black',
+            borderRadius: '5px',
+            borderColor: '#ccc',
+            padding: '10px',
+            fontSize: '18px',
+            height: '30px',
+            lineHeight: '30px',
+            fontFamily: '微软雅黑'
+          });
+          that.map.addOverlay(label);
+          marker.addEventListener('click', function () {
+            router.push(`/detail/${id}`)
+          })
+
+          that.marklist.push({
+            context: address,
+            dom: marker
+          })
+          that.textlist.push({
+            context: address,
+            dom: label
+          })
+        } else {
+          alert('您选择的地址没有解析到结果！');
+        }
+      })
     },
-    getPointList(marklist) {
-        axios({
-            method: "get",
-            url: "/api/position/info",
-            // url:"http://47.102.42.113:8082/position/info",
-            params: {},
-        }).then((res) => {
-            let infoList = res.data.data;
-            console.log(infoList);
-            infoList.forEach(item => {
-                this.createPoint(marklist, item.detailed_address)
-            })
-        })
+    getPointList () {
+      axios({
+        method: "get",
+        url: "/api/position/info",
+        // url:"http://47.102.42.113:8082/position/info",
+        params: {},
+      }).then((res) => {
+        this.infoList = res.data.data;
+      })
     },
     createdLabel (text, opts) {
       let label = new window.BMapGL.Label(text, opts);
@@ -88,7 +122,7 @@ export default {
       return label
     },
     //  市级
-    async createLabelList (address, paramsname,zoom) {
+    async createLabelList (address, paramsname, zoom) {
       //创建地址解析器实例
       let that = this
       let myGeo = new window.BMapGL.Geocoder();
@@ -125,6 +159,7 @@ export default {
         ]
       }
     },
+
     //在map中渲染label
     setLabel (map, list) {
       list.forEach(item => {
@@ -166,10 +201,14 @@ export default {
         })
       }
       if (zoom >= 8) {
-        this.setLabel(map, this.marklist)
-        // this.createPoint(map,"武汉市");
+        this.infoList.forEach(item => {
+          this.createPoint(item.trademark, item.brief_introduction, item.detailed_address, item.id)
+        })
       } else {
         this.marklist.forEach(item => {
+          map.removeOverlay(item.dom)
+        })
+        this.textlist.forEach(item => {
           map.removeOverlay(item.dom)
         })
       }
@@ -180,11 +219,49 @@ export default {
     },
     skip (item) {
       nextTick(() => {
-        console.log("item------>", item)
-        let point = new window.BMapGL.Point(item.point[0], item.point[1])
-        this.setPositionAndZoom(this.map, point, item.zoom)
-        console.log('skip ok');
-      })
+        if (!Array.isArray(item)) {
+          // 如果是搜索
+          let that = this
+          if ("trademark" in item) {
+            let myGeo = new window.BMapGL.Geocoder();
+            // 将地址解析结果显示在地图上，并调整地图视野
+            myGeo.getPoint(item.detailed_address, function (point) {
+              if (point) {
+                let data = new window.BMapGL.Point(point.lng, point.lat)
+                that.map.centerAndZoom(data, 9)
+              } else {
+                // alert('您选择的地址没有解析到结果！');
+              }
+            })
+          } else {
+            let point = new window.BMapGL.Point(item.point[0], item.point[1])
+            this.setPositionAndZoom(this.map, point, item.zoom)
+            if (!item.father) {
+              item.children.forEach(Searchitem => {
+                this.provinceList.forEach(item => {
+                  this.map.removeOverlay(item.dom)
+                })
+                this.provinceList = []
+                this.createLabelList(Searchitem.name, 'provinceList', 7)
+              })
+            } else {
+              this.city.forEach(item => {
+                this.map.removeOverlay(item.dom)
+              })
+              this.city = []
+              item.children.forEach(Searchitem => {
+                this.createLabelList(Searchitem.name, 'city', 9)
+              })
+            }
+          }
+        }
+        else {
+          console.log(1);
+          let middle = new window.BMapGL.Point(111.632, 30.433)
+          this.map.centerAndZoom(middle, 5)
+        }
+      }
+      )
     },
     skip2 (item) {
       console.log("skip2--->", item)
@@ -238,7 +315,7 @@ export default {
     // })
 
     // 加点  
-    this.getPointList(this.marklist)
+    this.getPointList()
     let yulu = new window.BMapGL.Marker(new window.BMapGL.Point(109.50, 30.20))
     yulu.addEventListener('click', function () {
       router.push('/detail')
@@ -284,10 +361,10 @@ export default {
       this.skip(route.query)
     }
     mapdata.forEach(item => {
-      this.createLabelList(item.name, 'city',9)
+      this.createLabelList(item.name, 'city', 9)
     })
     prodata.forEach(item => {
-      this.createLabelList(item.name, 'provinceList',7)
+      this.createLabelList(item.name, 'provinceList', 7)
     })
     let map = new window.BMapGL.Map("container")
     let point = new window.BMapGL.Point(109.488, 38.272)
@@ -303,7 +380,6 @@ export default {
     this.labelList.forEach(item => {
       const zoom = 6.5 // 跳转后地图的缩放比例
       item.dom.addEventListener('click', function () {
-        console.log(1);
         that.setPositionAndZoom(map, this.getPosition(), zoom)
         // that.setLabelShow(map,zoom,that.labelList)
       })
@@ -320,7 +396,6 @@ export default {
     this.city.forEach(item => {
       const zoom = 10
       item.dom.addEventListener('click', function () {
-        console.log(3);
         that.setPositionAndZoom(map, this.getPosition(), zoom)
       })
     })
