@@ -1,8 +1,13 @@
 <template>
   <transition name="search">
-    <div class="search-router" v-show="isShowSearch">
-      <div class="search-model" icon="el-icon-search">
-        <input type="text" v-model="searchText" @keyup.enter="updata" @input="inputChange">
+    <div class="search-router"
+         v-show="isShowSearch">
+      <div class="search-model"
+           icon="el-icon-search">
+        <input type="text"
+               v-model="searchText"
+               @keyup.enter="updata"
+               @input="inputChange">
         <el-icon>
           <Search />
         </el-icon>
@@ -10,26 +15,31 @@
       <div class="search-data">
         <ul>
           <el-scrollbar height="400px">
-            <li v-for="item in showData" :key="item" @click="liclick(item)" class="search-item">
+            <li v-for="item in showData"
+                :key="item"
+                @click="liclick(item)"
+                class="search-item">
               {{ item.name }}
             </li>
           </el-scrollbar>
         </ul>
         <div class="icon_back">
-          <button>返回</button>
+          <button @click="back()">返回</button>
         </div>
       </div>
     </div>
   </transition>
 </template>
 <script >
+import mapdata from '../assets/hubei.json'
+import prodata from '../assets/province.json'
 import { defineComponent } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 import throttle from 'lodash/throttle'
 import axios from 'axios'
 
 export default defineComponent({
-  data() {
+  data () {
     return {
       isShowSearch: false,
       searchText: "",
@@ -56,22 +66,24 @@ export default defineComponent({
           children: [
             {
               father: "华中",
+              name: "湖南省",
+              point: [114.34, 30.54],
+              ProID: '',
+              zoom: 7,
+              children: []
+            },
+            {
+              father: "华中",
               name: "湖北省",
               point: [114.34, 30.54],
               zoom: 7,
-              children: [
-                {
-                  father: "湖北省",
-                  name: "恩施",
-                  point: [109.48, 30.27],
-                  zoom: 9.3,
-                  children: null
-                }
-              ]
+              ProID: '',
+              children: []
             },
             {
               father: "华中",
               name: "河南省",
+              ProID: '',
               children: []
             }
           ]
@@ -110,7 +122,162 @@ export default defineComponent({
       lastSearchData: []
     }
   },
-  mounted() {
+  created () {
+    let searchItem = [
+      {
+        father: null,
+        name: "华东",
+        children: [
+
+        ]
+      },
+      {
+        father: null,
+        name: "华南",
+        children: [
+
+        ]
+      },
+      {
+        father: null,
+        name: "华中",
+        point: [111.632, 30.433],
+        zoom: 6.02,
+        children: [
+          {
+            father: "华中",
+            name: "河南省",
+            point: [114.34, 30.54],
+            ProID: '',
+            zoom: 7,
+            children: [
+            ]
+          },
+          {
+            father: "华中",
+            name: "湖北省",
+            point: [114.34, 30.54],
+            zoom: 7,
+            ProID: '',
+            children: [
+            ]
+          },
+          {
+            father: "华中",
+            name: "湖南省",
+            ProID: '',
+            point: [109.48, 30.27],
+            children: []
+          }
+        ]
+      },
+      {
+        father: null,
+        name: "华北",
+        children: [
+
+        ]
+      },
+      {
+        father: null,
+        name: "西北",
+        children: [
+
+        ]
+      },
+      {
+        father: null,
+        name: "西南",
+        children: [
+
+        ]
+      },
+      {
+        father: null,
+        name: "东北",
+        children: [
+
+        ]
+      }
+    ]
+    let pointArr = []
+    let pointOut = 0
+    //  添加proiD
+    searchItem.forEach(item_out => {
+      item_out.children.forEach(item_pro => {
+        prodata.forEach(element => {
+          if (element.name == item_pro.name) {
+            item_pro.ProID = element.ProID
+          }
+        });
+      });
+    });
+
+    // 往省里面加市
+    searchItem.forEach(item_out => {
+      // item_out -- 地区一级
+      let index = 0
+      item_out.children.forEach(item_pro => {
+        // item_pro--省一级
+        mapdata.forEach(item => {
+          if (item.ProID == item_pro.ProID) {
+            createPoint('', item.name)
+            creatLine();
+            // while(!pointArr[index]){},
+            setTimeout((index) => {
+              let Poidata = pointArr.find(poiitem => {
+                return poiitem.address == item.name
+              })
+              console.log(Poidata, item.name);
+              item_pro.children.push({
+
+                father: item_pro.name,
+                name: item.name,
+                point: Poidata.point,
+                zoom: 9.3,
+                children: null
+              })
+
+            }, 5000, index);
+            index++
+          }
+        });
+      });
+    });
+
+    function creatLine () {
+      //在此处判断是否赋值，如果赋值成功，异步刷新回调，那么四个值均不为初始值，若有值没有赋值成功则使用定时器重复刷新此函数
+      if (pointOut != 0) {
+        // console.log(pointOut);
+
+      } else {
+        setTimeout(() => {
+          creatLine()
+        }, 100);
+        //如果没有赋值，则重复刷新此函数代码，直到赋值成功完成渲染
+      }
+    }
+    function createPoint (marklist, address) {
+      var myGeo = new window.BMapGL.Geocoder();
+      // 将地址解析结果显示在地图上，并调整地图视野
+      myGeo.getPoint(address, function (point) {
+        if (point) {
+          pointOut = { point: [point.lng, point.lat], address }
+          pointArr.push(pointOut)
+          // console.log(address);
+        } else {
+          alert('您选择的地址没有解析到结果！');
+        }
+      })
+    }
+    let that = this;
+    setTimeout(() => {
+      that.searchData = searchItem
+      console.log('数据更新完成');
+    }, 4000);
+
+  },
+  mounted () {
     setTimeout(() => {
       this.isShowSearch = true
     }, 500)
@@ -118,7 +285,19 @@ export default defineComponent({
     this.lastSearchData = this.searchData
   },
   methods: {
-    liclick(item) {
+    back () {
+      if (this.nowSelect == this.lastSelect) {
+        this.nowSelect = this.searchData
+        this.$emit("skip", this.nowSelect)
+      }if(this.nowSelect == this.searchData){
+
+      } 
+      else {
+        this.nowSelect = this.lastSelect
+        this.$emit("skip", this.nowSelect)
+      }
+    },
+    liclick (item) {
       console.log('item', item.children === null);
       let flag = false
       if (item.children === null || !item.children) {
@@ -127,7 +306,6 @@ export default defineComponent({
         this.lastSelect = this.nowSelect
         this.nowSelect = item
       }
-      console.log(this.nowSelect)
       if (this.$attrs.skip !== null) {
         if (flag) {
           this.$emit("skip", item)
@@ -136,7 +314,7 @@ export default defineComponent({
         }
       }
     },
-    updata() {
+    updata () {
       console.log('updata')
       let result = null
       for (let i = 0; i < this.searchData.length; i++) {
@@ -182,9 +360,7 @@ export default defineComponent({
     }, 300)
   },
   computed: {
-    showData() {
-      console.log("last", this.lastSelect)
-      console.log("now", this.nowSelect)
+    showData () {
       if (this.nowSelect === this.searchData) {
         return this.searchData
       }
@@ -200,7 +376,8 @@ export default defineComponent({
         console.log("disan")
         return this.nowSelect.children
       }
-    }
+    },
+
   },
   components: {
     Search
@@ -221,7 +398,7 @@ export default defineComponent({
   z-index: 1000;
 }
 
-.search-router>.search-model {
+.search-router > .search-model {
   width: 100%;
   border-radius: 16px;
   box-sizing: border-box;
@@ -230,12 +407,12 @@ export default defineComponent({
   margin-bottom: 10px;
 }
 
-.search-router>.search-model>input {
+.search-router > .search-model > input {
   border: none;
   outline: 0;
 }
 
-.search-router>.search-data>ul {
+.search-router > .search-data > ul {
   display: flex;
   flex-direction: column;
   list-style: none;
