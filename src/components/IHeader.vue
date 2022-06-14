@@ -119,12 +119,12 @@ const syncMap = (item) => {
     emit('skip', item)
   }
 
-}
+};
 </script>
 
 <style lang="less">
 .bg {
-  background: url(../assets/SketchPng8f48c59cc4d3fb380c92955163224e0480f2bc6f2339047481634c26f7cf6ce2.png) no-repeat;
+  background: url(https://zgdlwhbz.oss-cn-hangzhou.aliyuncs.com/static/SketchPng8f48c59cc4d3fb380c92955163224e0480f2bc6f2339047481634c26f7cf6ce2.png) no-repeat;
   background-size: 100% 100%;
 }
 

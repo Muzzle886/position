@@ -22,12 +22,12 @@ const goToHomePage = () => {
 
     router.push('/home')
     isShowGuide.value = false
-}
+};
 </script>
 <style scoped>
 .guide-router {
     height: 100%;
-    background-image: url(../assets/bcg-index.png);
+    background-image: url(https://zgdlwhbz.oss-cn-hangzhou.aliyuncs.com/static/bcg-index.png);
     background-size: 100% 100%;
     background-attachment: fixed;
     display: flex;
@@ -48,7 +48,7 @@ const goToHomePage = () => {
 
 .guide-router>.content>.title>h1 {
     font-size: 93px;
-    font-family: 'Alibaba-PuHeiTi';
+    font-family: 'Alibaba-PuHuiTi-H';
     font-weight: bold;
     color: #FFFFFF;
     line-height: 83px;
@@ -56,7 +56,7 @@ const goToHomePage = () => {
 }
 
 .guide-router>.content>button {
-    font-family: 'Alibaba-PuHeiTi';
+    font-family: 'Alibaba-PuHuiTi';
     color: #FFFFFF;
     line-height: 48px;
     font-size: 34px;

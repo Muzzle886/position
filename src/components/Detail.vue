@@ -383,7 +383,7 @@ axios.get('/api/product/story', {
     margin: 68px auto;
     width: 1167px;
     height: 49px;
-    background: url(../assets/SketchPngc97578cd260cdba5793e870f3503315a756ffd4d2a1125cd5f4e4b9fef7015d2.png) no-repeat;
+    background: url(https://zgdlwhbz.oss-cn-hangzhou.aliyuncs.com/static/SketchPngc97578cd260cdba5793e870f3503315a756ffd4d2a1125cd5f4e4b9fef7015d2.png) no-repeat;
     background-size: 1167px 49px;
   }
 
@@ -395,7 +395,7 @@ axios.get('/api/product/story', {
     color: #FFFFFF;
     line-height: 33px;
     background: #264947;
-    font-family: Alibaba-PuHuiTi-B, Alibaba-PuHuiTi;
+    font-family: 'Alibaba-PuHuiTi-B', 'Alibaba-PuHuiTi';
     padding: 3px;
 
     a {
@@ -424,7 +424,7 @@ axios.get('/api/product/story', {
   .havenot {
     font-size: 22px;
     line-height: 30px;
-    font-family: 'Alibaba-PuHeiTi';
+    font-family: 'Alibaba-PuHuiTi';
     font-weight: bold;
     color: #000000;
     letter-spacing: 4px;
@@ -438,7 +438,7 @@ axios.get('/api/product/story', {
     text-align: center;
     font-weight: bold;
     letter-spacing: 4px;
-    font-family: Alibaba-PuHuiTi-B, Alibaba-PuHuiTi;
+    font-family: 'Alibaba-PuHuiTi-B', 'Alibaba-PuHuiTi';
 
   }
 
@@ -475,12 +475,11 @@ axios.get('/api/product/story', {
     margin: 50px auto;
     font-size: 22px;
     letter-spacing: 4px;
-    font-weight: bold;
-    font-family: Alibaba-PuHuiTi-M, Alibaba-PuHuiTi;
+    font-family: 'Alibaba-PuHuiTi-M', 'Alibaba-PuHuiTi';
 
     .title {
       margin-bottom: 24px;
-      font-family: Alibaba-PuHuiTi-B, Alibaba-PuHuiTi;
+      font-family: 'Alibaba-PuHuiTi-B', 'Alibaba-PuHuiTi';
     }
 
     div {
@@ -499,11 +498,11 @@ axios.get('/api/product/story', {
       .container-right {
         display: grid;
         grid-template-columns: 60px 1fr;
-        font-family: Alibaba-PuHuiTi-H, Alibaba-PuHuiTi;
+        font-family: 'Alibaba-PuHuiTi-H', 'Alibaba-PuHuiTi';
         gap: 70px;
 
         .container-title {
-          font-weight: 700;
+          // font-weight: 700;
           color: #264947;
           text-align: center;
           margin-top: 24px;
@@ -511,7 +510,7 @@ axios.get('/api/product/story', {
 
         span {
           margin-top: 24px;
-          font-family: Alibaba-PuHuiTi-R, Alibaba-PuHuiTi;
+          font-family: 'Alibaba-PuHuiTi-R', 'Alibaba-PuHuiTi';
         }
 
         div:first-child span {
@@ -617,7 +616,7 @@ axios.get('/api/product/story', {
 
   .sg p {
     font-size: 22px;
-    font-family: 'Alibaba-PuHeiTi';
+    font-family: 'Alibaba-PuHuiTi';
     font-weight: bold;
     color: #000000;
     letter-spacing: 4px;

@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GuidePage from '../components/GuidePage.vue'
-import HomePage from '../components/HomePage.vue'
-import IDetail from '../components/Detail.vue'
+// import GuidePage from '../components/GuidePage.vue'
+const GuidePage = () => import('../components/GuidePage.vue')
+// import HomePage from '../components/HomePage.vue'
+const HomePage = () => import('../components/HomePage.vue')
+// import IDetail from '../components/Detail.vue'
+const IDetail = () => import('../components/Detail.vue')
+
 const routes = [
   {
     path: '/',
@@ -17,6 +21,7 @@ const routes = [
     path:'/detail/:id',
     name:'detail',
     component:IDetail
+    
   }
 ]
 

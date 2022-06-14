@@ -15,7 +15,7 @@ body,
 }
 
 #app {
-  font-family: 'Alibaba-PuHeiTi';
+  font-family: 'Alibaba-PuHuiTi';
 }
 
 a {

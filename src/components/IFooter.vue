@@ -25,7 +25,7 @@
         <li><a href="">137-0719-1690</a></li>
       </ul>
       <div class="code">
-        <img src="../assets/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png" alt="">
+        <img src="https://zgdlwhbz.oss-cn-hangzhou.aliyuncs.com/static/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png" alt="">
       </div>
     </div>
   </div>
