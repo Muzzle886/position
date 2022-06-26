@@ -37,7 +37,8 @@ export default {
       map: {},
       label: [],
       point_out: '',
-      infoList: []
+      infoList: [],
+      treedata: ''
     }
   },
   methods: {
@@ -46,20 +47,9 @@ export default {
       let that = this
       // 将地址解析结果显示在地图上，并调整地图视野
       myGeo.getPoint(address, function (point) {
-        // let opts = {
-        //   width: 200,     // 信息窗口宽度
-        //   height: 300,     // 信息窗口高度
-        //   title: name, // 信息窗口标题
-        //   message: intro
-        // }
-
         if (point) {
           let marker = new window.BMapGL.Marker(point, { title: name })
           that.map.addOverlay(marker)
-          // var infoWindow = new BMapGL.InfoWindow(intro, opts);  // 创建信息窗口对象 
-          // marker.addEventListener("click", function () {
-          //   that.map.openInfoWindow(infoWindow, point); //开启信息窗口
-          // });
           let opts = {
             position: point, // 指定文本标注所在的地理位置
             offset: new BMapGL.Size(-50, -80) // 设置文本偏移量
@@ -121,8 +111,45 @@ export default {
       label.setStyle(style)
       return label
     },
-    //  市级
-    async createLabelList (address, paramsname, zoom) {
+
+    // createChidlLabelList (address, paramsname, zoom, item) {
+    //   let that = this
+    //   let father = item
+    //   let child = item.children
+    //   console.log(father);
+    //   let enshi = that.createdLabel(address, {
+    //     position: new window.BMapGL.Point(father.point[0], father.point[1]),
+    //     offset: new window.BMapGL.Size(-43, -49.92)
+    //   })
+
+    //   let temp = [
+    //     that.createdCoverObejct(address, enshi, child)
+    //   ]
+    //   // that.setPositionAndZoom(that.map, this.getPosition(), zoom)
+    //   temp.forEach(item => {
+    //     if (paramsname == "provinceList") {
+    //       item.dom.addEventListener('click', function () {
+    //         that.setPositionAndZoom(that.map, this.getPosition(), zoom)
+    //         // that.setLabelShow(map,zoom,that.labelList)
+    //         let mapdata = that.provinceList
+    //         let labelname = item.name
+    //         for (let index = 0; index < mapdata.length; index++) {
+    //           let element = mapdata[index];
+    //           if (element.name == labelname) {
+    //             that.$store.commit('update', { name: 'map_now', value: element })
+    //             that.city = []
+    //             element.children.forEach((item, index) => {
+    //               that.createLabelList(item.name, 'city', 9, item)
+    //             })
+    //           }
+    //         }
+    //       })
+    //     }
+    //     that[paramsname].push(item)
+    //   })
+    // },
+
+    async createLabelList (address, paramsname, zoom, item) {
       //创建地址解析器实例
       let that = this
       let myGeo = new window.BMapGL.Geocoder();
@@ -134,13 +161,37 @@ export default {
             offset: new window.BMapGL.Size(-43, -49.92)
           })
           let temp = [
-            that.createdCoverObejct(address, enshi)
+            that.createdCoverObejct(address, enshi, item.children)
           ]
+
           temp.forEach(item => {
-            item.dom.addEventListener('click', function () {
-              that.setPositionAndZoom(that.map, this.getPosition(), zoom)
-              // that.setLabelShow(map,zoom,that.labelList)
-            })
+            if (paramsname == "provinceList") {
+              item.dom.addEventListener('click', function () {
+                that.setPositionAndZoom(that.map, this.getPosition(), zoom)
+                // that.setLabelShow(map,zoom,that.labelList)
+                let mapdata = that.provinceList
+                let labelname = item.name
+                console.log(labelname);
+                for (let index = 0; index < mapdata.length; index++) {
+                  let element = mapdata[index];
+                  if (element.name == labelname) {
+                    that.$store.commit('update', { name: 'map_now', value: element })
+                    that.city = []
+
+                    element.children.forEach((item, index) => {
+                      that.createLabelList(item.name, 'city', 9, item)
+                    })
+                  }
+                }
+              })
+              console.log(address);
+            } else {
+              item.dom.addEventListener('click', function () {
+                that.setPositionAndZoom(that.map, this.getPosition(), zoom)
+                // that.setLabelShow(map,zoom,that.labelList)
+              })
+              console.log(address);
+            }
             that[paramsname].push(item)
           })
           // label = point     
@@ -150,34 +201,21 @@ export default {
       }, address)
     },
 
-    createdCoverObejct (context, label) {
+    createdCoverObejct (context, label, children) {
       return {
         name: context,
         dom: label,
-        children: [
-
-        ]
+        children: children
       }
     },
 
     //在map中渲染label
     setLabel (map, list) {
       list.forEach(item => {
+        // console.log(item);
         map.addOverlay(item.dom)
       })
     },
-    // setProvince(map,list){
-    //     list.forEach(item=>{
-    //         item.prov.get(item.context, function (rs) {
-    //             var hole = new window.BMapGL.Polygon(rs.boundaries, {
-    //                 fillColor: 'blue',
-    //                 fillOpacity: 0.2
-    //             });
-    //             item.dom = hole
-    //             map.addOverlay(item.dom);
-    //         });
-    //     })
-    // },
     setLabelShow (map, zoom, labelList) {
       if (zoom >= 6) {
         labelList.forEach(item => {
@@ -237,20 +275,20 @@ export default {
             let point = new window.BMapGL.Point(item.point[0], item.point[1])
             this.setPositionAndZoom(this.map, point, item.zoom)
             if (!item.father) {
-              item.children.forEach(Searchitem => {
+              item.children.forEach((Searchitem, index) => {
                 this.provinceList.forEach(item => {
                   this.map.removeOverlay(item.dom)
                 })
                 this.provinceList = []
-                this.createLabelList(Searchitem.name, 'provinceList', 7)
+                this.createLabelList(Searchitem.name, 'provinceList', 7, Searchitem)
               })
             } else {
               this.city.forEach(item => {
                 this.map.removeOverlay(item.dom)
               })
               this.city = []
-              item.children.forEach(Searchitem => {
-                this.createLabelList(Searchitem.name, 'city', 9)
+              item.children.forEach((Searchitem, index) => {
+                this.createLabelList(Searchitem.name, 'city', 9, Searchitem)
               })
             }
           }
@@ -354,21 +392,24 @@ export default {
     })
   },
   mounted () {
-    let that = this
-    console.log(mapdata);
     const route = useRoute();
+    let that = this
+    let map = new window.BMapGL.Map("container")
+    let point = new window.BMapGL.Point(109.488, 38.272)
+    this.map = map
+
     if (route.query) {
       this.skip(route.query)
     }
     mapdata.forEach(item => {
       this.createLabelList(item.name, 'city', 9)
     })
-    prodata.forEach(item => {
-      this.createLabelList(item.name, 'provinceList', 7)
-    })
-    let map = new window.BMapGL.Map("container")
-    let point = new window.BMapGL.Point(109.488, 38.272)
-    this.map = map
+    // prodata.forEach((item, index) => {
+    //   this.createLabelList(item.name, 'provinceList', 7, index)
+    // })
+
+
+
     map.centerAndZoom(point, this.zoom)
     map.enableScrollWheelZoom(true)
     map.addEventListener('zoomend', function (e) {
@@ -380,19 +421,24 @@ export default {
     this.labelList.forEach(item => {
       const zoom = 6.5 // 跳转后地图的缩放比例
       item.dom.addEventListener('click', function () {
+        let mapdata = that.$store.state.mapdata
+        let labelname = item.name.slice(0, 2)
+        for (let index = 0; index < mapdata.length; index++) {
+          let element = mapdata[index];
+          if (element.name == labelname) {
+            that.$store.commit('update', { name: 'map_now', value: element })
+            that.provinceList = []
+            // that.treedata = element.children
+            element.children.forEach((item, i) => {
+              console.log(item);
+              that.createLabelList(item.name, 'provinceList', 7, item)
+            })
+          }
+        }
         that.setPositionAndZoom(map, this.getPosition(), zoom)
-        // that.setLabelShow(map,zoom,that.labelList)
       })
     })
-    this.provinceList.forEach(item => {
-      const zoom = 8 // 跳转后地图的缩放比例
-      console.log(item.dom);
-      item.dom.addEventListener('click', function () {
 
-        that.setPositionAndZoom(map, this.getPosition(), zoom)
-        // that.setLabelShow(map,zoom,that.labelList)
-      })
-    })
     this.city.forEach(item => {
       const zoom = 10
       item.dom.addEventListener('click', function () {

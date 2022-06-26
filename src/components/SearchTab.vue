@@ -43,80 +43,7 @@ export default defineComponent({
     return {
       isShowSearch: false,
       searchText: "",
-      searchData: [
-        {
-          father: null,
-          name: "华东",
-          children: [
-
-          ]
-        },
-        {
-          father: null,
-          name: "华南",
-          children: [
-
-          ]
-        },
-        {
-          father: null,
-          name: "华中",
-          point: [111.632, 30.433],
-          zoom: 6.02,
-          children: [
-            {
-              father: "华中",
-              name: "湖南省",
-              point: [114.34, 30.54],
-              ProID: '',
-              zoom: 7,
-              children: []
-            },
-            {
-              father: "华中",
-              name: "湖北省",
-              point: [114.34, 30.54],
-              zoom: 7,
-              ProID: '',
-              children: []
-            },
-            {
-              father: "华中",
-              name: "河南省",
-              ProID: '',
-              children: []
-            }
-          ]
-        },
-        {
-          father: null,
-          name: "华北",
-          children: [
-
-          ]
-        },
-        {
-          father: null,
-          name: "西北",
-          children: [
-
-          ]
-        },
-        {
-          father: null,
-          name: "西南",
-          children: [
-
-          ]
-        },
-        {
-          father: null,
-          name: "东北",
-          children: [
-
-          ]
-        }
-      ],
+      searchData: '',
       nowSelect: null,
       lastSelect: null,
       lastSearchData: []
@@ -147,7 +74,7 @@ export default defineComponent({
           {
             father: "华中",
             name: "河南省",
-            point: [114.34, 30.54],
+            point: [113.75938408486323, 34.771712921931496],
             ProID: '',
             zoom: 7,
             children: [
@@ -166,7 +93,8 @@ export default defineComponent({
             father: "华中",
             name: "湖南省",
             ProID: '',
-            point: [109.48, 30.27],
+            zoom: 7,
+            point: [112.98960254334654, 28.118269998009367],
             children: []
           }
         ]
@@ -228,9 +156,8 @@ export default defineComponent({
               let Poidata = pointArr.find(poiitem => {
                 return poiitem.address == item.name
               })
-              console.log(Poidata, item.name);
+              // console.log(Poidata, item.name);
               item_pro.children.push({
-
                 father: item_pro.name,
                 name: item.name,
                 point: Poidata.point,
@@ -257,6 +184,7 @@ export default defineComponent({
         //如果没有赋值，则重复刷新此函数代码，直到赋值成功完成渲染
       }
     }
+
     function createPoint (marklist, address) {
       var myGeo = new window.BMapGL.Geocoder();
       // 将地址解析结果显示在地图上，并调整地图视野
@@ -273,10 +201,12 @@ export default defineComponent({
     let that = this;
     setTimeout(() => {
       that.searchData = searchItem
+      console.log(searchItem);
+      that.$store.commit('update', { name: 'mapdata', value: searchItem })
       console.log('数据更新完成');
     }, 4000);
-
   },
+
   mounted () {
     setTimeout(() => {
       this.isShowSearch = true
@@ -289,9 +219,9 @@ export default defineComponent({
       if (this.nowSelect == this.lastSelect) {
         this.nowSelect = this.searchData
         this.$emit("skip", this.nowSelect)
-      }if(this.nowSelect == this.searchData){
-
-      } 
+      } if (this.nowSelect == this.searchData) {
+        this.$emit("skip", this.nowSelect)
+      }
       else {
         this.nowSelect = this.lastSelect
         this.$emit("skip", this.nowSelect)
@@ -299,6 +229,7 @@ export default defineComponent({
     },
     liclick (item) {
       console.log('item', item.children === null);
+      console.log(item);
       let flag = false
       if (item.children === null || !item.children) {
         flag = true
@@ -315,7 +246,6 @@ export default defineComponent({
       }
     },
     updata () {
-      console.log('updata')
       let result = null
       for (let i = 0; i < this.searchData.length; i++) {
         if (this.searchData[i].name.indexOf(this.searchText) !== -1) {
