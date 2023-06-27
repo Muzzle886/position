@@ -3,8 +3,8 @@
         <div class="guide-router" v-if="isShowGuide">
             <div class="content">
                 <div class="title">
-                    <h1>中国源创地理标志</h1>
-                    <h1>文化共享平台</h1>
+                    <h1>中国地理标志文化</h1>
+                    <h1>数字共享平台</h1>
                 </div>
                 <button @click="goToHomePage">立即开启</button>
             </div>

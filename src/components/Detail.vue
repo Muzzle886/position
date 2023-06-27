@@ -7,12 +7,9 @@
       <span v-if="info.folk_type !== ''">民间非遗型·{{ info.folk_type }}</span>
     </div>
     <div class="cover">
-      <img
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng77a4cd172e334c4962d47ad1b1cb1b150e0d7a24094049655186035179745a25"
-        alt="">
-      <img
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng3db8536689d8f5f647e063eb04497f2aab7e5ff3b52dc2b37452acb95362e988"
-        alt="">
+      <img v-for="cover of covers"
+        :src="cover.url"
+        :alt="cover.title">
     </div>
     <div class="brand">
       <div class="brand-1">
@@ -211,6 +208,7 @@ import { getNameByProvince } from './dq'
 
 let id = useRoute().params.id
 
+let covers = ref([])
 let ads = ref([])
 let companys = ref([])
 let zjs = ref([])
@@ -225,6 +223,15 @@ let photos = ref([])
 let sgs = ref([])
 let sws = ref([])
 let gss = ref([])
+
+// 获取封面
+axios.get('/api/product/cover', {
+  params: {
+    id
+  }
+}).then(resp => {
+  covers.value = resp.data.data
+})
 
 // 获取广告媒介
 axios.get('/api/product/advertising', {

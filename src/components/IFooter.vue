@@ -21,24 +21,36 @@
       </ul>
       <ul>
         数据支持与合作
-        <li><a href="">中南民族大学商世民教授/博导</a></li>
-        <li><a href="">137-0719-1690</a></li>
+        <li><a href="">中南民族大学美术学院·湖北名师工作室</a></li>
+        <li><a href="">商世民教授/博士生导师</a></li>
+        <li><a href="">139-0719-1690</a></li>
       </ul>
       <div class="code">
-        <img src="https://zgdlwhbz.oss-cn-hangzhou.aliyuncs.com/static/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png" alt="">
+        <img
+          src="https://zgdlwhbz.oss-cn-hangzhou.aliyuncs.com/static/SketchPngf1241e848a3f29c01944161197f8955c2d0716552f4acbe0b026eea9e78cddbe.png"
+          alt=""
+        />
       </div>
+    </div>
+    <div class="icp">
+      <a
+        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42018502006238"
+        style="margin-right: 20px"
+      >
+        <img src="../assets/beian.png" alt="" />
+        <span> 鄂公安网备42018502006238号 </span>
+      </a>
+      <a href="https://beian.miit.gov.cn/"> 鄂ICP备2022015072号-1 </a>
     </div>
   </div>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="less">
 #footer {
   // height: 68px;
-  background: #2A2A2A;
+  background: #2a2a2a;
 
   .wrapper {
     width: 1300px;
@@ -53,7 +65,7 @@
     }
   }
 
-  .wrapper>ul {
+  .wrapper > ul {
     padding: 0;
     text-align: center;
     list-style: none;
@@ -76,6 +88,23 @@
 
     a:hover {
       color: #ba0000;
+    }
+  }
+
+  .icp {
+    text-align: center;
+    height: 30px;
+
+    a {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: normal;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+
+      img {
+        vertical-align: -5px;
+      }
     }
   }
 }

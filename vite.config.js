@@ -12,7 +12,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://47.102.42.113:8082/',
+        target: 'http://ycgi.com.cn/api',
         rewrite: path => path.replace(/^\/api/, ''),
       },
     },
